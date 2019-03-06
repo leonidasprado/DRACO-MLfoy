@@ -7,7 +7,10 @@ import numpy as np
 def GetPlotColor( cls ):
     color_dict = {
         "ttZ":   ROOT.kBlue+4,
-        "ttH":   ROOT.kBlue+1,
+        "ttHH4b":   ROOT.kBlue+1,
+        "ttHH":   ROOT.kBlue+1,
+        "ttHbb":   ROOT.kBlue+4,
+	"ttH":   ROOT.kBlue+4,
         "ttlf":  ROOT.kRed-7,
         "ttcc":  ROOT.kRed+1,
         "ttbb":  ROOT.kRed+3,
@@ -17,7 +20,7 @@ def GetPlotColor( cls ):
         "True":  "teal"
         }
 
-    if "ttH" in cls: cls = "ttH"
+    #if "ttH" in cls: cls = "ttHbb"
     return color_dict[cls]
 
 def GetyTitle():

@@ -10,7 +10,7 @@ sys.path.append(basedir)
 # import class for DNN training
 import DRACO_Frameworks.DNN.DNN as DNN
 # specify which variable set to use
-import variable_sets.XXX as variable_set
+import variable_sets.dnnVariableSet as variable_set
 
 # when executing the script give the jet-tag category as a first argument
 # (ge)[nJets]j_(ge)[nTags]t
@@ -20,13 +20,13 @@ JTcategory      = sys.argv[1]
 variables       = variable_set.variables[JTcategory]
 
 # specify all the event classes, e.g. ["ttH", "ttbb", "tt2b", ...]
-event_classes = []
+event_classes = ["ttHbb", "ttbb", "tt2b","ttb","ttcc","ttlf"]
 
 # absolute path to folder with input dataframes
-inPath   = ""
+inPath   = "/afs/cern.ch/user/l/lprado/work/DNNInputFiles/DNN_ttH_2017_v2"
 
 # path to output directory (adjust NAMING)
-savepath = basedir+"/workdir/"+"NAMING_"+str(JTcategory)
+savepath = basedir+"/workdir/"+"ttH_Test1_"+str(JTcategory)
 
 # initializing DNN training class
 dnn = DNN.DNN(

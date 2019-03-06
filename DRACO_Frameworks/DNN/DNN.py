@@ -439,7 +439,7 @@ class DNN():
             event_classes       = self.event_classes,
             nbins               = nbins,
             bin_range           = bin_range,
-            signal_class        = "ttHbb",
+            signal_class        = "ttHH4b",
             event_category      = self.categoryLabel,
             plotdir             = self.plot_path,
             logscale            = log)
@@ -455,7 +455,7 @@ class DNN():
     def plot_discriminators(self, log = False):
         ''' plot all events classified as one category '''
         nbins = 15
-        bin_range = [0.2, 0.7]
+        bin_range = [0.2, 0.9]
 
         plotDiscrs = plottingScripts.plotDiscriminators(
             data                = self.data,
@@ -463,7 +463,7 @@ class DNN():
             event_classes       = self.event_classes,
             nbins               = nbins,
             bin_range           = bin_range,
-            signal_class        = "ttHbb",
+            signal_class        = "ttHH4b",
             event_category      = self.categoryLabel,
             plotdir             = self.plot_path,
             logscale            = log)

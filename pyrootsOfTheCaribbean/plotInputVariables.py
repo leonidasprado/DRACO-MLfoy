@@ -5,14 +5,14 @@ filedir = os.path.dirname(os.path.realpath(__file__))
 basedir = os.path.dirname(filedir)
 sys.path.append(basedir)
 
-import variable_sets.ttZ_allVariables as variable_set
+import variable_sets.ttHH_Variables as variable_set
 from evaluationScripts.plotVariables import variablePlotter
 
 # location of input dataframes
-data_dir = "/nfs/dust/cms/user/vdlinden/ttZ_2019/datasamples/DNN/"
+data_dir = "/afs/cern.ch/user/l/lprado/work/DNNInputFiles/DNN_ttHH_2017_v3_withttH"
 
 # output location of plots
-plot_dir = "/nfs/dust/cms/user/vdlinden/ttZ_2019/variable_plots/"
+plot_dir = "/afs/cern.ch/user/l/lprado/work/SomePlots_ttHH_3M_ttH"
 if not os.path.exists(plot_dir):
     os.makedirs(plot_dir)
 
@@ -30,7 +30,8 @@ plotOptions = {
 
 # additional variables to plot
 additional_variables = [
-    ]
+    'N_Jets',
+ ]
 
 
 # initialize plotter
@@ -43,15 +44,12 @@ plotter = variablePlotter(
 
 # add samples
 plotter.addSample(
-    sampleName      = "ttH",
-    sampleFile      = data_dir+"/ttH_dnn.h5",
+    sampleName      = "ttHH",
+    sampleFile      = data_dir+"/ttHH4b_dnn.h5",
     signalSample    = True)
-
 plotter.addSample(
-    sampleName      = "ttZ",
-    sampleFile      = data_dir+"/ttZ_dnn.h5",
-    signalSample    = True)
-
+    sampleName      = "ttH",
+    sampleFile      = data_dir+"/ttHbb_dnn.h5")
 plotter.addSample(
     sampleName      = "ttbb",
     sampleFile      = data_dir+"/ttbb_dnn.h5")
@@ -78,7 +76,10 @@ plotter.addSample(
 plotter.addCategory("4j_ge3t")
 plotter.addCategory("5j_ge3t")
 plotter.addCategory("ge6j_ge3t")
-plotter.addCategory("ge4j_ge3t")
+#plotter.addCategory("ge4j_ge3t")
+#plotter.addCategory("6j_ge3t")
+#plotter.addCategory("7j_ge3t")
+#plotter.addCategory("ge8j_ge3t")
 
 
 # perform plotting routine
