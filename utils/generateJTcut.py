@@ -15,6 +15,9 @@ def getJTstring(cat):
     if jets.startswith("ge"): 
         njets  =  jets[2:-1]
         string += " >= "+njets
+    elif jets.startswith("le"):
+        njets  =  jets[2:-1]
+        string += " <= "+njets
     else:
         njets  =  jets[:-1]
         string += " == "+njets
@@ -57,6 +60,9 @@ def getJTlabel(cat):
     if jets.startswith("ge"):
         njets  =  jets[2:-1]
         string += " \geq"
+    elif jets.startswith("le"):
+        njets  =  jets[2:-1]
+        string += " \leq"
     else:
         njets  =  jets[:-1]
     string += " "+njets+" jets,"
