@@ -6,7 +6,7 @@ basedir = os.path.dirname(os.path.dirname(filedir))
 sys.path.append(basedir)
 
 import root2pandas
-import variable_sets.dnnVariableSet as variable_set
+import variable_sets.ttHH_allVariables as variable_set
 
 
 
@@ -35,11 +35,11 @@ abs(Weight_scale_variation_muR_2p0_muF_1p0) <= 100 and \
 abs(Weight_scale_variation_muR_2p0_muF_2p0) <= 100 \
 )"
 
-ttH_selection = "(Evt_Odd == 1)"
+ttHH_selection = "(Evt_Odd == 1)"
 
 # define output classes
-ttH_categories = root2pandas.EventCategories()
-ttH_categories.addCategory("ttHbb", selection = None)
+ttHH_categories = root2pandas.EventCategories()
+ttHH_categories.addCategory("ttHH4b", selection = None)
 
 ttbar_categories = root2pandas.EventCategories()
 ttbar_categories.addCategory("ttbb", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0)")
@@ -51,7 +51,7 @@ ttbar_categories.addCategory("ttcc", selection = "(GenEvt_I_TTPlusBB == 0 and Ge
 
 # initialize dataset class
 dataset = root2pandas.Dataset(
-    outputdir   = "/afs/cern.ch/user/l/lprado/work/DNNInputFiles/DNN_ttH_2017_v4_test/",
+    outputdir   = "/afs/cern.ch/user/l/lprado/work/DNNInputFiles/DNN_ttHH_2017_v2-allVar/",
     naming      = "dnn",
     addCNNmap   = False,
     addMEM      = False)
@@ -65,19 +65,19 @@ dataset.addBaseSelection(base_selection)
 
 
 # add samples to dataset
-dataset.addSample(
-    sampleName  = "ttHbb",
-    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/ttHTobb_forDNN/*nominal*.root",
-    categories  = ttH_categories,
-    selections  = ttH_selection)
+#dataset.addSample(
+#    sampleName  = "ttHH4b",
+#    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/TTHHTo4b_forDNN/*nominal*.root",
+#    categories  = ttHH_categories,
+#    selections  = ttHH_selection)
     #MEMs        = "/nfs/dust/cms/user/vdlinden/MEM_2017/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8_MEM/*.root",
     #CNNmaps     = "/nfs/dust/cms/user/vdlinden/DRACO-MLfoy/workdir/miniAOD_files/CNN_files/ttHbb.h5")
 
-#dataset.addSample(
-#    sampleName  = "TTToSL",
-#    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/TTToSemiLeptonic_forDNN/*nominal*.root",
-#    categories  = ttbar_categories,
-#    selections  = ttbar_selection)
+dataset.addSample(
+    sampleName  = "TTToSL",
+    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/TTToSemiLeptonic_forDNN/*nominal*.root",
+    categories  = ttbar_categories,
+    selections  = None)#ttbar_selection)
     #MEMs        = "/nfs/dust/cms/user/vdlinden/MEM_2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8_MEM/*.root",
     #CNNmaps     = "/nfs/dust/cms/user/vdlinden/DRACO-MLfoy/workdir/miniAOD_files/CNN_files/TTToSL.h5")
 
@@ -88,6 +88,7 @@ dataset.addVariables(variable_set.all_variables)
 additional_variables = [
     "N_Jets",
     "N_BTagsM",
+    "N_BTagsL",
     "Weight_XS",
     "Weight_CSV",
     "Weight_GEN_nom",
