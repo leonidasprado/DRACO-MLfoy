@@ -5,14 +5,14 @@ filedir = os.path.dirname(os.path.realpath(__file__))
 basedir = os.path.dirname(filedir)
 sys.path.append(basedir)
 
-import variable_sets.ttHH_allVariables as variable_set
+import variable_sets.dnnVariableSet_4tag as variable_set
 from evaluationScripts.plotVariables import variablePlotter
 
 # location of input dataframes
-data_dir = "/afs/cern.ch/user/l/lprado/work/DNNInputFiles/DNN_ttHH_2017_v1-allVar-allTT"
+data_dir = "/afs/cern.ch/user/l/lprado/work/DNNInputFiles/DNN_ttHH_2017_v2_3M1L"
 
 # output location of plots
-plot_dir = "/afs/cern.ch/user/l/lprado/work/SomePlots_ttHH_2017_v1-allVar-allTT"
+plot_dir = "/afs/cern.ch/user/l/lprado/work/SomePlots_ttHH_3M1L"
 if not os.path.exists(plot_dir):
     os.makedirs(plot_dir)
 
@@ -30,7 +30,24 @@ plotOptions = {
 
 # additional variables to plot
 additional_variables = [
+    'Jet_Eta[0]',
+    'Jet_CSV[0]',
+    'Jet_Pt[0]',
+    'Jet_Eta[1]',
+    'Jet_Pt[1]',
+    'Jet_CSV[1]',
+    'Jet_Eta[2]',
+    'Jet_CSV[2]',
+    'Jet_Pt[2]',
+    'Jet_Eta[3]',
+    'Jet_CSV[3]',
+    'Jet_Pt[3]',
+    'LooseLepton_Pt[0]',
+    'LooseLepton_Eta[0]',
     'N_Jets',
+    'N_BTagsM',
+    'N_BTagsL',
+    'Evt_HT'
  ]
 
 
@@ -70,14 +87,14 @@ plotter.addSample(
 
 
 # add JT categories
-plotter.addCategory("4j_ge3t")
-plotter.addCategory("5j_ge3t")
-plotter.addCategory("ge6j_ge3t")
-plotter.addCategory("le5j_ge3t")
-plotter.addCategory("ge4j_ge3t")
-#plotter.addCategory("6j_ge3t")
-#plotter.addCategory("ge7j_ge3t")
-
+plotter.addCategory("4j_ge4t")
+plotter.addCategory("5j_ge4t")
+#plotter.addCategory("ge6j_ge3t")
+#plotter.addCategory("ge4j_ge3t")
+plotter.addCategory("6j_ge4t")
+plotter.addCategory("7j_ge4t")
+plotter.addCategory("ge8j_ge4t")
+plotter.addCategory("ge4j_ge4t")
 
 # perform plotting routine
 plotter.plot()

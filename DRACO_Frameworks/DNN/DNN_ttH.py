@@ -439,7 +439,7 @@ class DNN():
             event_classes       = self.event_classes,
             nbins               = nbins,
             bin_range           = bin_range,
-            signal_class        = "ttHH4b",
+            signal_class        = "ttHbb",
             event_category      = self.categoryLabel,
             plotdir             = self.plot_path,
             logscale            = log)
@@ -463,7 +463,7 @@ class DNN():
             event_classes       = self.event_classes,
             nbins               = nbins,
             bin_range           = bin_range,
-            signal_class        = "ttHH4b",
+            signal_class        = "ttHbb",
             event_category      = self.categoryLabel,
             plotdir             = self.plot_path,
             logscale            = log)
