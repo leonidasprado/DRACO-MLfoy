@@ -38,15 +38,16 @@ class DNN():
 
     def __init__(self, in_path, save_path,
                 event_classes,
+		event_classes_extra,
                 event_category,
                 train_variables,
                 batch_size = 5000,
                 train_epochs = 500,
-                early_stopping = 10,
+                early_stopping = 100,
                 optimizer = None,
                 loss_function = "categorical_crossentropy",
                 test_percentage = 0.2,
-                eval_metrics = None,
+                eval_metrics = "acc",
                 additional_cut = None):
 
         # save some information
@@ -58,6 +59,8 @@ class DNN():
             os.makedirs( self.save_path )
         # list of classes
         self.event_classes = event_classes
+        #classes for plotting
+	self.event_classes_extra = event_classes_extra
         # name of event category (usually nJet/nTag category)
         self.JTstring       = event_category
         self.event_category = JTcut.getJTstring(event_category)
@@ -103,7 +106,7 @@ class DNN():
 
         return data_frame.DataFrame(
             path_to_input_files = self.in_path,
-            classes             = self.event_classes,
+            classes             = self.event_classes_extra,
             event_category      = self.event_category,
             train_variables     = self.train_variables,
             test_percentage     = self.test_percentage,
@@ -125,18 +128,21 @@ class DNN():
 
         self.predicted_classes = np.argmax( self.model_prediction_vector, axis = 1)
         #Some checks:
-        print(self.model_prediction_vector)
-        print(self.predicted_classes)
-        print(self.event_classes)
+	print("prediction vector print: ",self.model_prediction_vector[0:10,:])
+        print("predicted_classes is: ",self.predicted_classes)
+        print("event_classes is: ",self.event_classes)
+	print("event_classes_extra is:  ",self.event_classes_extra)
         print(self.categoryLabel)
         print(self.data)
-	for counter, value in enumerate(self.event_classes):
-	  print(counter)
-	  print(value)
-	print("this thing ",value," is ",self.data.class_translation[value])
+	for i, node_cls in enumerate(self.event_classes):
+	  print(i)
+	  print(node_cls)
+	print("this thing ",node_cls," is ",self.data.class_translation[node_cls])
         print(self.data.class_translation)
         #print(self.data.get_full_df())
- 
+	print("get test labels is:  ", self.data.get_test_labels(as_categorical=False))
+ 	print("lumi weights:   ", self.data.get_lumi_weights())
+
     def predict_event_query(self, query ):
         events = self.data.get_full_df().query( query )
         print(str(events.shape[0]) + " events matched the query '"+str(query)+"'.")
@@ -167,6 +173,7 @@ class DNN():
             data                = self.data,
             prediction_vector   = self.model_prediction_vector,
             event_classes       = self.event_classes,
+	    event_classes_extra  = self.event_classes_extra,
             nbins               = nbins,
             bin_range           = bin_range,
             signal_class        = "ttHH4b",

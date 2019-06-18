@@ -21,8 +21,9 @@ JTcategory      = "ge4j_ge3t"
 variables       = variable_set.variables[JTcategory]
 
 # specify all the event classes, e.g. ["ttH", "ttbb", "tt2b", ...]
+#event_classes also correspond to the nodes in the DNN
 event_classes = ["ttHH4b", "ttbb", "tt2b","ttb","ttcc","ttlf"]
-event_classes3 = ["ttHH4b", "ttHbb", "ttbb", "tt2b","ttb","ttcc","ttlf"]
+event_classes_extra = ["ttHH4b", "ttbb", "tt2b","ttb","ttcc","ttlf","ttHbb"]
 event_classes2 = ["ttHH4b"]
 
 # absolute path to folder with input dataframes
@@ -39,15 +40,11 @@ dnn = DNN.DNN(
     in_path         = inPath,
     save_path       = savepath,
     event_classes   = event_classes,
+    event_classes_extra = event_classes_extra,
     event_category  = JTcategory,
     train_variables = variables,
-    # number of epochs
-    train_epochs    = 500,
-    # number of epochs without decrease in loss before stopping
-    early_stopping  = 100,
-    # metrics for evaluation (c.f. KERAS metrics)
-    eval_metrics    = ["acc"],
     # percentage of train set to be used for testing (i.e. evaluating/plotting after training)
+    #if set to 1, use all the events. This script is based on training script but it is not meant for training
     test_percentage = 0.2)
 
 # build default model
@@ -67,7 +64,7 @@ dnn.load_trained_model()
 #------TEST-------#
 f = ROOT.TFile("ttHH_Test1_predict_"+str(JTcategory)+".root","RECREATE")
 #Modified the plot.discriminatiors() function for this. Need to create a root file first
-#dnn.plot_discriminators()
+dnn.plot_discriminators()
 f.Close()
 
 #some tests

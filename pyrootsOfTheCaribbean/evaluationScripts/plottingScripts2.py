@@ -16,12 +16,13 @@ import plot_configs.setupPlots as setup
 
 
 class plotDiscriminators:
-    def __init__(self, data, prediction_vector, event_classes, nbins, bin_range, signal_class, event_category, plotdir, logscale = False):
+    def __init__(self, data, prediction_vector, event_classes, event_classes_extra, nbins, bin_range, signal_class, event_category, plotdir, logscale = False):
         self.data              = data
         self.prediction_vector = prediction_vector
         self.predicted_classes = np.argmax( self.prediction_vector, axis = 1)
 
         self.event_classes     = event_classes
+	self.event_classes_extra = event_classes_extra
         self.nbins             = nbins
         self.bin_range         = bin_range
         self.signal_class      = signal_class
@@ -42,11 +43,13 @@ class plotDiscriminators:
         # generate one plot per output node
         for i, node_cls in enumerate(self.event_classes):
             nodeIndex = self.data.class_translation[node_cls]
-
+            print("i is: ", i)
+	    print("node_cls is: ",node_cls)
+	    print("signal flag is: ", self.signalFlag)
             # get output values of this node
-            if i<6:
-              out_values = self.prediction_vector[:,i]
-
+            out_values = self.prediction_vector[:,i]
+            print("The out_values are: ",out_values)
+	    print("signalIndex is:  ", self.signalIndex)
             if self.printROCScore:
                 # calculate ROC value for specific node
                 nodeROC = roc_auc_score(self.signalFlag, out_values)
@@ -57,7 +60,7 @@ class plotDiscriminators:
             weightIntegral = 0
 
             # loop over all classes to fill hists according to truth level class
-            for j, truth_cls in enumerate(self.event_classes):
+            for j, truth_cls in enumerate(self.event_classes_extra):
                 classIndex = self.data.class_translation[truth_cls]
 
                 # filter values per event class
