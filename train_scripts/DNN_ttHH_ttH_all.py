@@ -1,16 +1,16 @@
 # global imports
 import os
 import sys
-
+import ROOT
 # local imports
 filedir = os.path.dirname(os.path.realpath(__file__))
 basedir = os.path.dirname(filedir)
 sys.path.append(basedir)
 
 # import class for DNN training
-import DRACO_Frameworks.DNN.DNN_ttH as DNN
+import DRACO_Frameworks.DNN.DNN as DNN
 # specify which variable set to use
-import variable_sets.ttHH_allVariables as variable_set
+import variable_sets.ttHH_ttH_topVariables as variable_set
 
 # when executing the script give the jet-tag category as a first argument
 # (ge)[nJets]j_(ge)[nTags]t
@@ -20,13 +20,13 @@ JTcategory      = sys.argv[1]
 variables       = variable_set.variables[JTcategory]
 
 # specify all the event classes, e.g. ["ttH", "ttbb", "tt2b", ...]
-event_classes = ["ttHbb", "ttbb", "tt2b","ttb","ttcc","ttlf"]
+event_classes = ["ttHH4b", "ttHbb", "ttbb", "tt2b","ttb","ttcc","ttlf"]
 
 # absolute path to folder with input dataframes
-inPath   = "/afs/cern.ch/user/l/lprado/work/DNNInputFiles/DNN_ttH_2017_v2-allVar"
+inPath   = "/afs/cern.ch/user/l/lprado/work/DNNInputFiles/DNN_ttHH_ttH_2017_v2-allVar"
 
 # path to output directory (adjust NAMING)
-savepath = basedir+"/workdir/"+"ttH_2017_v2-allVar_"+str(JTcategory)
+savepath = basedir+"/workdir/"+"ttHH_ttH_2017_v2_topVar_"+str(JTcategory)
 
 # initializing DNN training class
 dnn = DNN.DNN(
@@ -45,19 +45,19 @@ dnn = DNN.DNN(
     test_percentage = 0.2)
 
 # build default model
-#dnn.build_model()
+dnn.build_model()
 # perform the training
-#dnn.train_model()
+dnn.train_model()
 # evalute the trained model
-#dnn.eval_model()
+dnn.eval_model()
 #If model already exists, use only commands below
-dnn.load_trained_model()
+#dnn.load_trained_model()
 # get variable ranking
 dnn.get_input_weights()
 
 # plotting 
 # plot the evaluation metrics
-#dnn.plot_metrics()
+dnn.plot_metrics()
 # plot the confusion matrix
 dnn.plot_confusionMatrix(norm_matrix = True)
 # plot the output discriminators

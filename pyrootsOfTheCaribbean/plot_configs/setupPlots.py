@@ -9,8 +9,8 @@ def GetPlotColor( cls ):
         "ttZ":   ROOT.kBlue+4,
         "ttHH4b":   ROOT.kBlue+1,
         "ttHH":   ROOT.kBlue+1,
-        "ttHbb":   ROOT.kBlue+4,
-	"ttH":   ROOT.kBlue+4,
+        "ttHbb":   ROOT.kGreen+3,
+	"ttH":   ROOT.kGreen+3,
         "ttlf":  ROOT.kRed-7,
         "ttcc":  ROOT.kRed+1,
         "ttbb":  ROOT.kRed+3,
@@ -108,7 +108,7 @@ def draw2DHistOnCanvas(hist, canvasName, catLabel, ROC = None, ROCerr = None):
 
     # draw histogram
     #ROOT.gStyle.SetPalette(69)
-    hist.DrawCopy("colz text1e")
+    hist.DrawCopy("colz text1")
 
     # setup TLatex
     latex = ROOT.TLatex()

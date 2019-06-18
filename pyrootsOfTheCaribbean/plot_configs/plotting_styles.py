@@ -4,7 +4,7 @@ import ROOT
 # dictionary for colors
 def get_plot_color( cls ):
     color_dict = {
-        "ttH":   ROOT.kBlue+1,#"royalblue",
+	"ttHbb":   ROOT.kBlue+1,#"royalblue",
         "ttlf":  ROOT.kRed-7,#"salmon",
         "ttcc":  ROOT.kRed+1,#"orangered",
         "ttbb":  ROOT.kRed+3,#"maroon",

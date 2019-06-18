@@ -8,9 +8,9 @@ basedir = os.path.dirname(filedir)
 sys.path.append(basedir)
 
 # import class for DNN training
-import DRACO_Frameworks.DNN.DNN_ttH as DNN
+import DRACO_Frameworks.DNN.DNN as DNN
 # specify which variable set to use
-import variable_sets.ttHH_allVariables as variable_set
+import variable_sets.ttHH_Variables as variable_set
 
 # when executing the script give the jet-tag category as a first argument
 # (ge)[nJets]j_(ge)[nTags]t
@@ -23,10 +23,10 @@ variables       = variable_set.variables[JTcategory]
 event_classes = ["ttHbb", "ttbb", "tt2b","ttb","ttcc","ttlf"]
 
 # absolute path to folder with input dataframes
-inPath   = "/afs/cern.ch/user/l/lprado/work/DNNInputFiles/DNN_ttH_2017_v2-allVar"
+inPath   = "/afs/cern.ch/user/l/lprado/work/DNNInputFiles/DNN_ttH_2017"
 
 # path to output directory (adjust NAMING)
-savepath = basedir+"/workdir/"+"ttH_2017_v2-allVar_"+str(JTcategory)
+savepath = basedir+"/workdir/"+"ttH_Test2_"+str(JTcategory)
 
 # initializing DNN training class
 dnn = DNN.DNN(
@@ -38,7 +38,7 @@ dnn = DNN.DNN(
     # number of epochs
     train_epochs    = 500,
     # number of epochs without decrease in loss before stopping
-    early_stopping  = 50,
+    early_stopping  = 20,
     # metrics for evaluation (c.f. KERAS metrics)
     eval_metrics    = ["acc"],
     # percentage of train set to be used for testing (i.e. evaluating/plotting after training)
@@ -52,9 +52,6 @@ dnn = DNN.DNN(
 #dnn.eval_model()
 #If model already exists, use only commands below
 dnn.load_trained_model()
-# get variable ranking
-dnn.get_input_weights()
-
 # plotting 
 # plot the evaluation metrics
 #dnn.plot_metrics()

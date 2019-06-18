@@ -11,7 +11,7 @@ architecture["4j_ge3t"] = {
     "optimizer":                optimizers.Adam(1e-4),
     "activation_function":      "elu",
     "output_activation":        "Softmax",
-    "earlystopping_percentage": 0.02,
+    "earlystopping_percentage": 0.05,
     "batchNorm":                False,
     }
 
@@ -40,6 +40,72 @@ architecture["ge6j_ge3t"] = {
     "earlystopping_percentage": 0.02,
     "batchNorm":                False,
     }
+
+architecture["ge4j_ge3t"] = {
+    "layers":                   [100,100,100],
+    "loss_function":            "categorical_crossentropy",
+    "Dropout":                  0.50,
+    "L2_Norm":                  1e-5,
+    "batch_size":               4096,
+    "optimizer":                optimizers.Adam(1e-4),
+    "activation_function":      "elu",
+    "output_activation":        "Softmax",
+    "earlystopping_percentage": 0.02,
+    "batchNorm":                False,
+    }
+
+architecture["le5j_ge3t"] = {
+    "layers":                   [100,100,100],
+    "loss_function":            "categorical_crossentropy",
+    "Dropout":                  0.50,
+    "L2_Norm":                  1e-5,
+    "batch_size":               4096,
+    "optimizer":                optimizers.Adam(1e-4),
+    "activation_function":      "elu",
+    "output_activation":        "Softmax",
+    "earlystopping_percentage": 0.02,
+    "batchNorm":                False,
+    }
+
+architecture["le6j_ge3t"] = {
+    "layers":                   [100,100,100],
+    "loss_function":            "categorical_crossentropy",
+    "Dropout":                  0.50,
+    "L2_Norm":                  1e-5,
+    "batch_size":               4096,
+    "optimizer":                optimizers.Adam(1e-4),
+    "activation_function":      "elu",
+    "output_activation":        "Softmax",
+    "earlystopping_percentage": 0.02,
+    "batchNorm":                False,
+    }
+
+architecture["6j_ge3t"] = {
+    "layers":                   [100,100,100],
+    "loss_function":            "categorical_crossentropy",
+    "Dropout":                  0.50,
+    "L2_Norm":                  1e-5,
+    "batch_size":               4096,
+    "optimizer":                optimizers.Adam(1e-4),
+    "activation_function":      "elu",
+    "output_activation":        "Softmax",
+    "earlystopping_percentage": 0.05,
+    "batchNorm":                False,
+    }
+
+architecture["ge7j_ge3t"] = {
+    "layers":                   [100,100,100],
+    "loss_function":            "categorical_crossentropy",
+    "Dropout":                  0.50,
+    "L2_Norm":                  1e-5,
+    "batch_size":               4096,
+    "optimizer":                optimizers.Adam(1e-4),
+    "activation_function":      "elu",
+    "output_activation":        "Softmax",
+    "earlystopping_percentage": 0.05,
+    "batchNorm":                False,
+    }
+
 
 def getArchitecture(cat):
     return architecture[cat]
