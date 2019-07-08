@@ -137,11 +137,12 @@ class DNN():
 	for i, node_cls in enumerate(self.event_classes):
 	  print(i)
 	  print(node_cls)
-	print("this thing ",node_cls," is ",self.data.class_translation[node_cls])
+	#print("this thing ",node_cls," is ",self.data.class_translation[node_cls])
         print(self.data.class_translation)
         #print(self.data.get_full_df())
 	print("get test labels is:  ", self.data.get_test_labels(as_categorical=False))
  	print("lumi weights:   ", self.data.get_lumi_weights())
+	print("get test labels is:  ", self.data.get_test_labels(as_categorical=False)[0])
 
     def predict_event_query(self, query ):
         events = self.data.get_full_df().query( query )
@@ -177,6 +178,7 @@ class DNN():
             nbins               = nbins,
             bin_range           = bin_range,
             signal_class        = "ttHH4b",
+	    data_class          = "data",
             event_category      = self.categoryLabel,
             plotdir             = self.plot_path,
             logscale            = log)

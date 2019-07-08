@@ -23,8 +23,8 @@ variables       = variable_set.variables[JTcategory]
 # specify all the event classes, e.g. ["ttH", "ttbb", "tt2b", ...]
 #event_classes also correspond to the nodes in the DNN
 event_classes = ["ttHH4b", "ttbb", "tt2b","ttb","ttcc","ttlf"]
-event_classes_extra = ["ttHH4b", "ttbb", "tt2b","ttb","ttcc","ttlf","ttHbb"]
-event_classes2 = ["ttHH4b"]
+event_classes_extra = ["ttHH4b", "ttbb", "tt2b","ttb","ttcc","ttlf","ttHbb","data"]
+#event_classes_extra = ["ttHH4b"]
 
 # absolute path to folder with input dataframes
 inPath   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_ttH_TT_2017_v1-topVar"
@@ -45,7 +45,7 @@ dnn = DNN.DNN(
     train_variables = variables,
     # percentage of train set to be used for testing (i.e. evaluating/plotting after training)
     #if set to 1, use all the events. This script is based on training script but it is not meant for training
-    test_percentage = 0.2)
+    test_percentage = 0.05)
 
 # build default model
 #dnn.build_model()
@@ -62,10 +62,16 @@ dnn.load_trained_model()
 #dnn.plot_confusionMatrix(norm_matrix = True)
 # plot the output discriminators
 #------TEST-------#
-f = ROOT.TFile("ttHH_Test1_predict_"+str(JTcategory)+".root","RECREATE")
+#f = ROOT.TFile("ttHH_Test3_data_predict_"+str(JTcategory)+".root","RECREATE")
+#subD1=f.mkdir("ttHH4b_node")
+#subD2=f.mkdir("ttbb_node")
+#subD3=f.mkdir("tt2b_node")
+#subD4=f.mkdir("ttb_node")
+#subD5=f.mkdir("ttcc_node")
+#subD6=f.mkdir("ttlf_node")
 #Modified the plot.discriminatiors() function for this. Need to create a root file first
 dnn.plot_discriminators()
-f.Close()
+#f.Close()
 
 #some tests
 #dnn.predict_event_query("Evt_ID == 5929612")

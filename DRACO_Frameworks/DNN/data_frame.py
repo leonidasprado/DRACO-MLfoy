@@ -35,7 +35,10 @@ class DataFrame(object):
             print("number of events after selections:  "+str(cls_df.shape[0]))
 
             # add event weight
-            cls_df = cls_df.assign(total_weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom)
+            if "data" in cls:
+              cls_df = cls_df.assign(total_weight = lambda x: x.Weight_XS * x.Weight_CSV)
+            else:
+              cls_df = cls_df.assign(total_weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom)
 
             weight_sum = sum(cls_df["total_weight"].values)
             class_weight_scale = 1.
@@ -44,7 +47,10 @@ class DataFrame(object):
             print("weight sum of train_weight: "+str( sum(cls_df["train_weight"].values) ))
 
             # add lumi weight
-            cls_df = cls_df.assign(lumi_weight = lambda x: x.Weight_XS * x.Weight_GEN_nom * lumi)
+            if "data" in cls:
+              cls_df = cls_df.assign(lumi_weight = lambda x: x.Weight_XS)
+            else:
+              cls_df = cls_df.assign(lumi_weight = lambda x: x.Weight_XS * x.Weight_GEN_nom * lumi)
 
             # add data to list of dataframes
             class_dataframes.append( cls_df )

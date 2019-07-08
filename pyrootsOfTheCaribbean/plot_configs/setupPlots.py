@@ -16,6 +16,7 @@ def GetPlotColor( cls ):
         "ttbb":  ROOT.kRed+3,
         "tt2b":  ROOT.kRed+2,
         "ttb":   ROOT.kRed-2,
+        "data":  ROOT.kMagenta,
         "False": "orangered",
         "True":  "teal"
         }

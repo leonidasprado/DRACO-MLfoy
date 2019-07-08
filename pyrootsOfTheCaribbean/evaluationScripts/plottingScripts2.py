@@ -16,7 +16,7 @@ import plot_configs.setupPlots as setup
 
 
 class plotDiscriminators:
-    def __init__(self, data, prediction_vector, event_classes, event_classes_extra, nbins, bin_range, signal_class, event_category, plotdir, logscale = False):
+    def __init__(self, data, prediction_vector, event_classes, event_classes_extra, nbins, bin_range, signal_class, data_class, event_category, plotdir, logscale = False):
         self.data              = data
         self.prediction_vector = prediction_vector
         self.predicted_classes = np.argmax( self.prediction_vector, axis = 1)
@@ -26,12 +26,16 @@ class plotDiscriminators:
         self.nbins             = nbins
         self.bin_range         = bin_range
         self.signal_class      = signal_class
+	self.data_class        = data_class
         self.event_category    = event_category
         self.plotdir           = plotdir
         self.logscale          = logscale
 
         self.signalIndex       = self.data.class_translation[self.signal_class]
         self.signalFlag        = self.data.get_class_flag(self.signal_class)
+
+	self.dataIndex         = self.data.class_translation[self.data_class]
+	self.dataFlag          = self.data.get_class_flag(self.data_class)
 
         # default settings
         self.printROCScore = False
@@ -40,16 +44,27 @@ class plotDiscriminators:
         self.printROCScore = printROCScore
 
     def plot(self, ratio = False):
+        f = ROOT.TFile("ttHH_Test5_data_predict_"+"ge4j_ge3t"+".root","RECREATE")
+	subD1=f.mkdir("ttHH4b_node")
+	subD2=f.mkdir("ttbb_node")
+	subD3=f.mkdir("tt2b_node")
+	subD4=f.mkdir("ttb_node")
+	subD5=f.mkdir("ttcc_node")
+	subD6=f.mkdir("ttlf_node")
         # generate one plot per output node
         for i, node_cls in enumerate(self.event_classes):
             nodeIndex = self.data.class_translation[node_cls]
+	    RDirectory = [subD1,subD2,subD3,subD4,subD5,subD6]
             print("i is: ", i)
 	    print("node_cls is: ",node_cls)
 	    print("signal flag is: ", self.signalFlag)
+	    print("data flag is: ", self.dataFlag)
             # get output values of this node
             out_values = self.prediction_vector[:,i]
             print("The out_values are: ",out_values)
 	    print("signalIndex is:  ", self.signalIndex)
+	    print("dataIndex is:  ", self.dataIndex)
+	    print("folder is:  ", RDirectory[i])
             if self.printROCScore:
                 # calculate ROC value for specific node
                 nodeROC = roc_auc_score(self.signalFlag, out_values)
@@ -77,6 +92,11 @@ class plotDiscriminators:
                     sig_values  = filtered_values
                     sig_label   = str(truth_cls)
                     sig_weights = filtered_weights
+		elif j == self.dataIndex:
+                    # data histogram
+                    data_values  = filtered_values
+                    data_label   = str(truth_cls)
+                    data_weights = filtered_weights
                 else:
                     # background histograms
                     weightIntegral += sum(filtered_weights)
@@ -87,13 +107,18 @@ class plotDiscriminators:
                         nbins     = self.nbins,
                         bin_range = self.bin_range,
                         color     = setup.GetPlotColor(truth_cls),
-                        xtitle    = str(truth_cls)+" at "+str(node_cls)+" node",
+                        xtitle    = str(truth_cls),
+			#+" at "+str(node_cls)+" node",
                         ytitle    = setup.GetyTitle(),
                         filled    = True)
                     
+                    RDirectory[i].cd()
                     histogram.Write() 
+		    f.cd()
                     bkgHists.append( histogram )
                     bkgLabels.append( truth_cls )
+		    print("checking the bkdHists... :   ", bkgHists)
+		    print("checking the bkgLabels... :   ", bkgLabels)
             # setup signal histogram
             sigHist = setup.setupHistogram(
                 values    = sig_values,
@@ -101,11 +126,30 @@ class plotDiscriminators:
                 nbins     = self.nbins,
                 bin_range = self.bin_range,
                 color     = setup.GetPlotColor(sig_label),
-                xtitle    = str(sig_label)+" at "+str(node_cls)+" node",
+                xtitle    = str(sig_label),
+		#+" at "+str(node_cls)+" node",
                 ytitle    = setup.GetyTitle(),
                 filled    = False)
 
+            RDirectory[i].cd()
             sigHist.Write()
+            f.cd()
+
+            # setup data histogram
+            dataHist = setup.setupHistogram(
+                values    = data_values,
+                weights   = data_weights,
+                nbins     = self.nbins,
+                bin_range = self.bin_range,
+                color     = setup.GetPlotColor(sig_label),
+                xtitle    = "data_obs",
+                ytitle    = setup.GetyTitle(),
+                filled    = False)
+
+	    RDirectory[i].cd()
+            dataHist.Write()
+	    f.cd()
+
             # set signal histogram linewidth
             sigHist.SetLineWidth(3)
 
