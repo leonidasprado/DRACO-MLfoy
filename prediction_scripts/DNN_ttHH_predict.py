@@ -23,11 +23,12 @@ variables       = variable_set.variables[JTcategory]
 # specify all the event classes, e.g. ["ttH", "ttbb", "tt2b", ...]
 #event_classes also correspond to the nodes in the DNN
 event_classes = ["ttHH4b", "ttbb", "tt2b","ttb","ttcc","ttlf"]
-event_classes_extra = ["ttHH4b", "ttbb", "tt2b","ttb","ttcc","ttlf","ttHbb","data"]
-#event_classes_extra = ["ttHH4b"]
+event_classes_extra = ["ttHH4b", "ttbb", "tt2b","ttb","ttcc","ttlf","ttHbb"]
+#event_classes_extra = ["ttHH4b", "ttbb", "tt2b","ttb","ttcc","ttlf","ttHbb","data","ttHH4b_JESUp", "ttbb_JESUp", "tt2b_JESUp","ttb_JESUp","ttcc_JESUp","ttlf_JESUp","ttHbb_JESUp","ttHH4b_JESDown", "ttbb_JESDown", "tt2b_JESDown","ttb_JESDown","ttcc_JESDown","ttlf_JESDown","ttHbb_JESDown","ttHH4b_JERUp", "ttbb_JERUp", "tt2b_JERUp","ttb_JERUp","ttcc_JERUp","ttlf_JERUp","ttHbb_JERUp","ttHH4b_JERDown", "ttbb_JERDown", "tt2b_JERDown","ttb_JERDown","ttcc_JERDown","ttlf_JERDown","ttHbb_JERDown"]
 
 # absolute path to folder with input dataframes
-inPath   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_ttH_TT_2017_v1-topVar"
+inPath   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_syst-topVar"
+#inPath   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_ttH_TT_2017_v1-topVar"
 #inPath   = "/afs/cern.ch/user/l/lprado/work/DNNInputFiles/DNN_ttHH_2017_v2-topVar"
 
 
@@ -44,35 +45,12 @@ dnn = DNN.DNN(
     event_category  = JTcategory,
     train_variables = variables,
     # percentage of train set to be used for testing (i.e. evaluating/plotting after training)
-    #if set to 1, use all the events. This script is based on training script but it is not meant for training
-    test_percentage = 0.05)
+    #if set to 1, use all the events. This script is based on training script.
+    test_percentage = 1.0)
 
-# build default model
-#dnn.build_model()
-# perform the training
-#dnn.train_model()
-# evalute the trained model
-#dnn.eval_model()
-#If model already exists, use only commands below
+#Model already exists, defined with training script
 dnn.load_trained_model()
 # plotting 
-# plot the evaluation metrics
-#dnn.plot_metrics()
-# plot the confusion matrix
-#dnn.plot_confusionMatrix(norm_matrix = True)
 # plot the output discriminators
-#------TEST-------#
-#f = ROOT.TFile("ttHH_Test3_data_predict_"+str(JTcategory)+".root","RECREATE")
-#subD1=f.mkdir("ttHH4b_node")
-#subD2=f.mkdir("ttbb_node")
-#subD3=f.mkdir("tt2b_node")
-#subD4=f.mkdir("ttb_node")
-#subD5=f.mkdir("ttcc_node")
-#subD6=f.mkdir("ttlf_node")
-#Modified the plot.discriminatiors() function for this. Need to create a root file first
+#Root file created in plotting script
 dnn.plot_discriminators()
-#f.Close()
-
-#some tests
-#dnn.predict_event_query("Evt_ID == 5929612")
-#dnn.get_input_weights()
