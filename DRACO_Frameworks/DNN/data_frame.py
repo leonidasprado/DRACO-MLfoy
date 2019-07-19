@@ -48,9 +48,9 @@ class DataFrame(object):
 
             # add lumi weight
             if "data" in cls:
-              cls_df = cls_df.assign(lumi_weight = lambda x: x.Weight_XS)
+              cls_df = cls_df.assign(lumi_weight = lambda x: x.Weight_XS * x.Weight_CSV)
             else:
-              cls_df = cls_df.assign(lumi_weight = lambda x: x.Weight_XS * x.Weight_GEN_nom * lumi)
+              cls_df = cls_df.assign(lumi_weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * lumi)
 
             # add data to list of dataframes
             class_dataframes.append( cls_df )
