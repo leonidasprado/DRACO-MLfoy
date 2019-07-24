@@ -41,8 +41,36 @@ ttHH_selection = "(Evt_Odd == 0)"
 ttHH_categories = root2pandas.EventCategories()
 ttHH_categories.addCategory("ttHH4b", selection = None)
 
+ttHHJESup_categories = root2pandas.EventCategories()
+ttHHJESup_categories.addCategory("ttHH4b_JESUp", selection = None)
+
+ttHHJESdown_categories = root2pandas.EventCategories()
+ttHHJESdown_categories.addCategory("ttHH4b_JESDown", selection = None)
+
+ttHHJERup_categories = root2pandas.EventCategories()
+ttHHJERup_categories.addCategory("ttHH4b_JERUp", selection = None)
+
+ttHHJERdown_categories = root2pandas.EventCategories()
+ttHHJERdown_categories.addCategory("ttHH4b_JERDown", selection = None)
+
+
+
 ttH_categories = root2pandas.EventCategories()
 ttH_categories.addCategory("ttHbb", selection = None)
+
+ttHJESup_categories = root2pandas.EventCategories()
+ttHJESup_categories.addCategory("ttHbb_JESUp", selection = None)
+
+ttHJESdown_categories = root2pandas.EventCategories()
+ttHJESdown_categories.addCategory("ttHbb_JESDown", selection = None)
+
+ttHJERup_categories = root2pandas.EventCategories()
+ttHJERup_categories.addCategory("ttHbb_JERUp", selection = None)
+
+ttHJERdown_categories = root2pandas.EventCategories()
+ttHJERdown_categories.addCategory("ttHbb_JERDown", selection = None)
+
+
 
 ttbar_categories = root2pandas.EventCategories()
 ttbar_categories.addCategory("ttbb", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0)")
@@ -51,10 +79,40 @@ ttbar_categories.addCategory("ttb",  selection = "(GenEvt_I_TTPlusBB == 1 and Ge
 ttbar_categories.addCategory("ttlf", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 0)")
 ttbar_categories.addCategory("ttcc", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 1)")
 
+ttbarJESup_categories = root2pandas.EventCategories()
+ttbarJESup_categories.addCategory("ttbb_JESUp", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0)")
+ttbarJESup_categories.addCategory("tt2b_JESUp", selection = "(GenEvt_I_TTPlusBB == 2 and GenEvt_I_TTPlusCC == 0)")
+ttbarJESup_categories.addCategory("ttb_JESUp",  selection = "(GenEvt_I_TTPlusBB == 1 and GenEvt_I_TTPlusCC == 0)")
+ttbarJESup_categories.addCategory("ttlf_JESUp", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 0)")
+ttbarJESup_categories.addCategory("ttcc_JESUp", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 1)")
+
+ttbarJESdown_categories = root2pandas.EventCategories()
+ttbarJESdown_categories.addCategory("ttbb_JESDown", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0)")
+ttbarJESdown_categories.addCategory("tt2b_JESDown", selection = "(GenEvt_I_TTPlusBB == 2 and GenEvt_I_TTPlusCC == 0)")
+ttbarJESdown_categories.addCategory("ttb_JESDown",  selection = "(GenEvt_I_TTPlusBB == 1 and GenEvt_I_TTPlusCC == 0)")
+ttbarJESdown_categories.addCategory("ttlf_JESDown", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 0)")
+ttbarJESdown_categories.addCategory("ttcc_JESDown", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 1)")
+
+ttbarJERup_categories = root2pandas.EventCategories()
+ttbarJERup_categories.addCategory("ttbb_JERUp", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0)")
+ttbarJERup_categories.addCategory("tt2b_JERUp", selection = "(GenEvt_I_TTPlusBB == 2 and GenEvt_I_TTPlusCC == 0)")
+ttbarJERup_categories.addCategory("ttb_JERUp",  selection = "(GenEvt_I_TTPlusBB == 1 and GenEvt_I_TTPlusCC == 0)")
+ttbarJERup_categories.addCategory("ttlf_JERUp", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 0)")
+ttbarJERup_categories.addCategory("ttcc_JERUp", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 1)")
+
+ttbarJERdown_categories = root2pandas.EventCategories()
+ttbarJERdown_categories.addCategory("ttbb_JERDown", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0)")
+ttbarJERdown_categories.addCategory("tt2b_JERDown", selection = "(GenEvt_I_TTPlusBB == 2 and GenEvt_I_TTPlusCC == 0)")
+ttbarJERdown_categories.addCategory("ttb_JERDown",  selection = "(GenEvt_I_TTPlusBB == 1 and GenEvt_I_TTPlusCC == 0)")
+ttbarJERdown_categories.addCategory("ttlf_JERDown", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 0)")
+ttbarJERdown_categories.addCategory("ttcc_JERDown", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 1)")
+
+
+
 
 # initialize dataset class
 dataset = root2pandas.Dataset(
-    outputdir   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_ttH_TT_2017_v1-topVar/",
+    outputdir   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_syst-topVar/",
     naming      = "dnn",
     addCNNmap   = False,
     addMEM      = False)
@@ -70,25 +128,100 @@ dataset.addBaseSelection(base_selection)
 # add samples to dataset
 dataset.addSample(
     sampleName  = "ttHH4b",
-    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/TTHHTo4b_forDNN/*nominal*.root",
+    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTHHTo4b_forDNN/*nominal*.root",
     categories  = ttHH_categories,
     selections  = ttHH_selection)
-    #MEMs        = "/nfs/dust/cms/user/vdlinden/MEM_2017/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8_MEM/*.root",
-    #CNNmaps     = "/nfs/dust/cms/user/vdlinden/DRACO-MLfoy/workdir/miniAOD_files/CNN_files/ttHbb.h5")
+
+dataset.addSample(
+    sampleName  = "ttHH4bJESup",
+    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTHHTo4b_forDNN/*JESup*.root", 
+    categories  = ttHHJESup_categories,
+    selections  = ttHH_selection)
+
+dataset.addSample(
+    sampleName  = "ttHH4bJESdown",
+    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTHHTo4b_forDNN/*JESdown*.root", 
+    categories  = ttHHJESdown_categories,
+    selections  = ttHH_selection)
+
+dataset.addSample(
+    sampleName  = "ttHH4bJERup",
+    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTHHTo4b_forDNN/*JERup*.root",
+    categories  = ttHHJERup_categories,
+    selections  = ttHH_selection)
+
+dataset.addSample(
+    sampleName  = "ttHH4bJERdown",
+    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTHHTo4b_forDNN/*JERdown*.root",
+    categories  = ttHHJERdown_categories,
+    selections  = ttHH_selection)
+
+
+
 
 dataset.addSample(
     sampleName  = "TTToSL",
-    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/TTToSemiLeptonic/*nominal*.root",
+    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTToSemiLeptonic/*nominal*.root",
     categories  = ttbar_categories,
     selections  = None)#ttbar_selection)
-    #MEMs        = "/nfs/dust/cms/user/vdlinden/MEM_2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8_MEM/*.root",
-    #CNNmaps     = "/nfs/dust/cms/user/vdlinden/DRACO-MLfoy/workdir/miniAOD_files/CNN_files/TTToSL.h5")
+
+dataset.addSample(
+    sampleName  = "TTToSLJESup",
+    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTToSemiLeptonic/*JESup*.root",
+    categories  = ttbarJESup_categories,
+    selections  = None)#ttbar_selection)
+
+dataset.addSample(
+    sampleName  = "TTToSLJESdown",
+    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTToSemiLeptonic/*JESdown*.root",
+    categories  = ttbarJESdown_categories,
+    selections  = None)#ttbar_selection)
+
+dataset.addSample(
+    sampleName  = "TTToSLJERup",
+    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTToSemiLeptonic/*JERup*.root",
+    categories  = ttbarJERup_categories,
+    selections  = None)#ttbar_selection)
+
+dataset.addSample(
+    sampleName  = "TTToSLJERdown",
+    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTToSemiLeptonic/*JERdown*.root",
+    categories  = ttbarJERdown_categories,
+    selections  = None)#ttbar_selection)
+
+
+
 
 dataset.addSample(
     sampleName  = "ttHbb",
-    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/ttHTobb_forDNN/*nominal*.root",
+    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/ttHTobb/*nominal*.root",
     categories  = ttH_categories,
     selections  = ttHH_selection)
+
+dataset.addSample(
+    sampleName  = "ttHbbJESup",
+    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/ttHTobb/*JESup*.root",
+    categories  = ttHJESup_categories,
+    selections  = ttHH_selection)
+
+dataset.addSample(
+    sampleName  = "ttHbbJESdown",
+    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/ttHTobb/*JESdown*.root",
+    categories  = ttHJESdown_categories,
+    selections  = ttHH_selection)
+
+dataset.addSample(
+    sampleName  = "ttHbbJERup",
+    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/ttHTobb/*JERup*.root",
+    categories  = ttHJERup_categories,
+    selections  = ttHH_selection)
+
+dataset.addSample(
+    sampleName  = "ttHbbJERdown",
+    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/ttHTobb/*JERdown*.root",
+    categories  = ttHJERdown_categories,
+    selections  = ttHH_selection)
+
 
 # initialize variable list 
 dataset.addVariables(variable_set.all_variables)

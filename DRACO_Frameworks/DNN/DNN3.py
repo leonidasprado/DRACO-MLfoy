@@ -15,7 +15,7 @@ from pyrootsOfTheCaribbean.evaluationScripts import plottingScripts2 as plotting
 # imports with keras
 import utils.generateJTcut as JTcut
 import architecture as arch
-import data_frame
+import data_frame2 as data_frame
 
 import keras
 import keras.models as models
@@ -37,6 +37,7 @@ K.tensorflow_backend.set_session(tf.Session(config=config))
 class DNN():
 
     def __init__(self, in_path, save_path,
+                root_output,
                 event_classes,
 		event_classes_extra,
                 event_category,
@@ -53,6 +54,7 @@ class DNN():
         # save some information
         # path to input files
         self.in_path = in_path
+        self.root_output = root_output
         # output directory for results
         self.save_path = save_path
         if not os.path.exists(self.save_path):
@@ -94,6 +96,7 @@ class DNN():
             os.makedirs(self.cp_path)
         out_file = self.cp_path + "/variable_norm.csv"
         self.data.norm_csv.to_csv(out_file)
+        print(self.data.norm_csv)
         print("saved variabe norms at "+str(out_file))
 
         # make plotdir
@@ -106,7 +109,9 @@ class DNN():
 
         return data_frame.DataFrame(
             path_to_input_files = self.in_path,
+            save_path           = self.save_path,
             classes             = self.event_classes_extra,
+            node_classes        = self.event_classes,
             event_category      = self.event_category,
             train_variables     = self.train_variables,
             test_percentage     = self.test_percentage,
@@ -133,7 +138,7 @@ class DNN():
         print("event_classes is: ",self.event_classes)
 	print("event_classes_extra is:  ",self.event_classes_extra)
         print(self.categoryLabel)
-        print(self.data)
+        #print(self.data)
 	for i, node_cls in enumerate(self.event_classes):
 	  print(i)
 	  print(node_cls)
@@ -141,9 +146,8 @@ class DNN():
         print(self.data.class_translation)
         #print(self.data.get_full_df())
 	print("get test labels is:  ", self.data.get_test_labels(as_categorical=False))
- 	print("lumi weights:   ", self.data.get_lumi_weights())
+ 	#print("lumi weights:   ", self.data.get_lumi_weights())
 	print("get test labels is:  ", self.data.get_test_labels(as_categorical=False)[0])
-
     def predict_event_query(self, query ):
         events = self.data.get_full_df().query( query )
         print(str(events.shape[0]) + " events matched the query '"+str(query)+"'.")
@@ -167,7 +171,7 @@ class DNN():
 
     def plot_discriminators(self, log = False):
         ''' plot all events classified as one category '''
-        nbins = 18
+        nbins = 50
         bin_range = [0.1, 1.0]
 
         plotDiscrs = plottingScripts.plotDiscriminators(
@@ -181,6 +185,7 @@ class DNN():
 	    data_class          = "data",
             event_category      = self.categoryLabel,
             plotdir             = self.plot_path,
+            root_output         = self.root_output,
             logscale            = log)
 
         plotDiscrs.set_printROCScore(False)

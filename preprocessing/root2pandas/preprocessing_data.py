@@ -45,7 +45,7 @@ ttH_categories = root2pandas.EventCategories()
 ttH_categories.addCategory("ttHbb", selection = None)
 
 data_categories = root2pandas.EventCategories()
-data_categories.addCategory("data", selection = None)
+data_categories.addCategory("data_obs", selection = None)
 
 ttbar_categories = root2pandas.EventCategories()
 ttbar_categories.addCategory("ttbb", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0)")
