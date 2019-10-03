@@ -4,7 +4,7 @@ from sklearn.utils import shuffle
 
 class DataFrame(object):
     def __init__(self, path_to_input_files,save_path,
-                classes,node_classes, event_category,
+                classes,node_classes,systematics,event_category,
                 train_variables,
                 test_percentage,
                 norm_variables = False,
@@ -46,10 +46,56 @@ class DataFrame(object):
             print("weight sum of train_weight: "+str( sum(cls_df["train_weight"].values) ))
 
             # add lumi weight
+            # if the systematics are btag related, just add the syst.
+            # if it is coming from an ntuple, just add it (multiplying by 1)
+		#=> in this case, lumi_weight should be equal lumi_weight_syst.
+                #=> if it is nominal, this will be the case.
+            # if it is not btag related, remove the nominal and add the syst.
+            onlyttbarlist=("GenWeight_8","GenWeight_6","GenWeight_9","GenWeight_7","Weight_LHA_306000_up","Weight_LHA_306000_down","Weight_scale_variation_muR_2p0_muF_1p0","Weight_scale_variation_muR_0p5_muF_1p0","Weight_scale_variation_muR_1p0_muF_2p0","Weight_scale_variation_muR_1p0_muF_0p5")
             if "data" in cls:
               cls_df = cls_df.assign(lumi_weight = lambda x: x.Weight_XS * x.Weight_CSV)
-            else:
-              cls_df = cls_df.assign(lumi_weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * lumi)
+            elif "ttHH4b" in cls and systematics not in onlyttbarlist:
+              cls_df = cls_df.assign(lumi_weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi)
+              if "Weight_pu69p2" in systematics:
+                cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi)
+              elif "Weight_ElectronSFGFS" in systematics:
+                cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_pu69p2 * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi)
+              elif "Weight_ElectronSFID" in systematics:
+                cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi)
+              elif "Weight_ElectronSFTrigger" in systematics:
+                cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi)
+              elif "Weight_MuonSFID" in systematics:
+                cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi)
+              elif "Weight_MuonSFIso" in systematics:
+                cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFTrigger * lumi)
+              elif "Weight_MuonSFTrigger" in systematics:
+                cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * lumi)
+              else:
+                cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi)
+              print("old lumi: ", cls_df["lumi_weight"])
+              print("new lumi", cls_df["lumi_weight_syst"])
+            elif "ttHH4b" not in cls:
+              cls_df = cls_df.assign(lumi_weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * x.Weight_LHA_306000_nominal * lumi)
+              if "Weight_pu69p2" in systematics:
+                cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * x.Weight_LHA_306000_nominal * lumi)
+              elif "Weight_ElectronSFGFS" in systematics:
+                cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_pu69p2 * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * x.Weight_LHA_306000_nominal *  lumi)
+              elif "Weight_ElectronSFID" in systematics:
+                cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * x.Weight_LHA_306000_nominal * lumi)
+              elif "Weight_ElectronSFTrigger" in systematics:
+                cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * x.Weight_LHA_306000_nominal * lumi)
+              elif "Weight_MuonSFID" in systematics:
+                cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * x.Weight_LHA_306000_nominal * lumi)
+              elif "Weight_MuonSFIso" in systematics:
+                cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFTrigger * x.Weight_LHA_306000_nominal * lumi)
+              elif "Weight_MuonSFTrigger" in systematics:
+                cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_LHA_306000_nominal * lumi)
+              elif "Weight_LHA_306000" in systematics:
+                cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * lumi)
+              else:
+                cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * x.Weight_LHA_306000_nominal * lumi)
+              print("old lumi: ", cls_df["lumi_weight"])
+              print("new lumi", cls_df["lumi_weight_syst"])
 
             # add data to list of dataframes
             class_dataframes.append( cls_df )
@@ -149,6 +195,8 @@ class DataFrame(object):
         return self.df_test["total_weight"].values
     def get_lumi_weights(self):
         return self.df_test["lumi_weight"].values
+    def get_lumi_weights_syst(self):
+        return self.df_test["lumi_weight_syst"].values
 
     def get_test_labels(self, as_categorical = True):
         if as_categorical: return to_categorical( self.df_test["index_label"].values )

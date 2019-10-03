@@ -42,6 +42,7 @@ class DNN():
 		event_classes_extra,
                 event_category,
                 train_variables,
+                systematics,
                 batch_size = 5000,
                 train_epochs = 500,
                 early_stopping = 100,
@@ -67,6 +68,9 @@ class DNN():
         self.JTstring       = event_category
         self.event_category = JTcut.getJTstring(event_category)
         self.categoryLabel  = JTcut.getJTlabel(event_category)
+
+        #string for controlling systematic variation templates
+        self.systematics = systematics
 
         # list of input variables
         self.train_variables = train_variables
@@ -104,6 +108,10 @@ class DNN():
         if not os.path.exists(self.plot_path):
             os.makedirs(self.plot_path)
 
+        self.bin_range=[[0.17,1.0],[0.17,0.84],[0.17,0.70],[0.17,0.58],[0.17,0.41],[0.17,0.64]]
+        #self.nbins=[len(self.bin_range[0])-1,len(self.bin_range[1])-1,len(self.bin_range[2])-1,len(self.bin_range[3])-1,len(self.bin_range[4])-1,len(self.bin_range[5])-1]
+        self.nbins=[20,15,10,11,7,15]
+
     def _load_datasets(self):
         ''' load data set '''
 
@@ -112,6 +120,7 @@ class DNN():
             save_path           = self.save_path,
             classes             = self.event_classes_extra,
             node_classes        = self.event_classes,
+            systematics         = self.systematics,
             event_category      = self.event_category,
             train_variables     = self.train_variables,
             test_percentage     = self.test_percentage,
@@ -171,18 +180,42 @@ class DNN():
 
     def plot_discriminators(self, log = False):
         ''' plot all events classified as one category '''
-        nbins = 50
-        bin_range = [0.1, 1.0]
+        nbins     = self.nbins
+        bin_range = self.bin_range
 
         plotDiscrs = plottingScripts.plotDiscriminators(
             data                = self.data,
             prediction_vector   = self.model_prediction_vector,
             event_classes       = self.event_classes,
 	    event_classes_extra  = self.event_classes_extra,
+            systematics         = self.systematics,
             nbins               = nbins,
             bin_range           = bin_range,
             signal_class        = "ttHH4b",
 	    data_class          = "data",
+            event_category      = self.categoryLabel,
+            plotdir             = self.plot_path,
+            root_output         = self.root_output,
+            logscale            = log)
+
+        plotDiscrs.set_printROCScore(False)
+        plotDiscrs.plot(ratio = False)
+
+    def plot_discriminators_pretty(self, log = False):
+        ''' plot all events classified as one category '''
+        nbins     = self.nbins
+        bin_range = self.bin_range
+
+        plotDiscrs = plottingScripts.plotDiscriminatorsPretty(
+            data                = self.data,
+            prediction_vector   = self.model_prediction_vector,
+            event_classes       = self.event_classes,
+            event_classes_extra  = self.event_classes_extra,
+            systematics         = self.systematics,
+            nbins               = nbins,
+            bin_range           = bin_range,
+            signal_class        = "ttHH4b",
+            data_class          = "data",
             event_category      = self.categoryLabel,
             plotdir             = self.plot_path,
             root_output         = self.root_output,

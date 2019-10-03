@@ -6,7 +6,7 @@ basedir = os.path.dirname(os.path.dirname(filedir))
 sys.path.append(basedir)
 
 import root2pandas
-import variable_sets.ttHH_topVariables as variable_set
+import variable_sets.ttHH_allVariables as variable_set
 
 
 
@@ -112,17 +112,13 @@ ttbarJERdown_categories.addCategory("ttcc_JERDown", selection = "(GenEvt_I_TTPlu
 
 # initialize dataset class
 dataset = root2pandas.Dataset(
-    outputdir   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_syst-topVar/",
+    outputdir   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_syst-allVar/",
     naming      = "dnn",
     addCNNmap   = False,
     addMEM      = False)
 
 # add base event selection
 dataset.addBaseSelection(base_selection)
-
-
-
-
 
 
 # add samples to dataset
@@ -132,94 +128,11 @@ dataset.addSample(
     categories  = ttHH_categories,
     selections  = ttHH_selection)
 
-dataset.addSample(
-    sampleName  = "ttHH4bJESup",
-    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTHHTo4b_forDNN/*JESup*.root", 
-    categories  = ttHHJESup_categories,
-    selections  = ttHH_selection)
-
-dataset.addSample(
-    sampleName  = "ttHH4bJESdown",
-    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTHHTo4b_forDNN/*JESdown*.root", 
-    categories  = ttHHJESdown_categories,
-    selections  = ttHH_selection)
-
-dataset.addSample(
-    sampleName  = "ttHH4bJERup",
-    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTHHTo4b_forDNN/*JERup*.root",
-    categories  = ttHHJERup_categories,
-    selections  = ttHH_selection)
-
-dataset.addSample(
-    sampleName  = "ttHH4bJERdown",
-    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTHHTo4b_forDNN/*JERdown*.root",
-    categories  = ttHHJERdown_categories,
-    selections  = ttHH_selection)
-
-
-
-
-dataset.addSample(
-    sampleName  = "TTToSL",
-    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTToSemiLeptonic/*nominal*.root",
-    categories  = ttbar_categories,
-    selections  = None)#ttbar_selection)
-
-dataset.addSample(
-    sampleName  = "TTToSLJESup",
-    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTToSemiLeptonic/*JESup*.root",
-    categories  = ttbarJESup_categories,
-    selections  = None)#ttbar_selection)
-
-dataset.addSample(
-    sampleName  = "TTToSLJESdown",
-    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTToSemiLeptonic/*JESdown*.root",
-    categories  = ttbarJESdown_categories,
-    selections  = None)#ttbar_selection)
-
-dataset.addSample(
-    sampleName  = "TTToSLJERup",
-    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTToSemiLeptonic/*JERup*.root",
-    categories  = ttbarJERup_categories,
-    selections  = None)#ttbar_selection)
-
-dataset.addSample(
-    sampleName  = "TTToSLJERdown",
-    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTToSemiLeptonic/*JERdown*.root",
-    categories  = ttbarJERdown_categories,
-    selections  = None)#ttbar_selection)
-
-
-
 
 dataset.addSample(
     sampleName  = "ttHbb",
     ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/ttHTobb/*nominal*.root",
     categories  = ttH_categories,
-    selections  = ttHH_selection)
-
-dataset.addSample(
-    sampleName  = "ttHbbJESup",
-    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/ttHTobb/*JESup*.root",
-    categories  = ttHJESup_categories,
-    selections  = ttHH_selection)
-
-dataset.addSample(
-    sampleName  = "ttHbbJESdown",
-    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/ttHTobb/*JESdown*.root",
-    categories  = ttHJESdown_categories,
-    selections  = ttHH_selection)
-
-dataset.addSample(
-    sampleName  = "ttHbbJERup",
-    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/ttHTobb/*JERup*.root",
-    categories  = ttHJERup_categories,
-    selections  = ttHH_selection)
-
-dataset.addSample(
-    sampleName  = "ttHbbJERdown",
-    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/ttHTobb/*JERdown*.root",
-    categories  = ttHJERdown_categories,
     selections  = ttHH_selection)
 
 
@@ -236,7 +149,45 @@ additional_variables = [
     "Weight_GEN_nom",
     "Evt_ID", 
     "Evt_Run", 
-    "Evt_Lumi"]
+    "Evt_Lumi",
+    "Weight_CSVCErr1down",
+    "Weight_CSVCErr1up",
+    "Weight_CSVCErr2down",
+    "Weight_CSVCErr2up",
+    "Weight_CSVHFdown",
+    "Weight_CSVHFup",
+    "Weight_CSVHFStats1down",
+    "Weight_CSVHFStats1up",
+    "Weight_CSVHFStats2down",
+    "Weight_CSVHFStats2up",
+    "Weight_CSVLFdown",
+    "Weight_CSVLFup",
+    "Weight_CSVLFStats1down",
+    "Weight_CSVLFStats1up",
+    "Weight_CSVLFStats2down",
+    "Weight_CSVLFStats2up",
+    "Weight_pu69p2",
+    "Weight_pu69p2Down",
+    "Weight_pu69p2Up",
+    "Weight_ElectronSFGFS",
+    "Weight_ElectronSFGFS_Down",
+    "Weight_ElectronSFGFS_Up",
+    "Weight_ElectronSFID",
+    "Weight_ElectronSFID_Down",
+    "Weight_ElectronSFID_Up",
+    "Weight_ElectronSFTrigger",
+    "Weight_ElectronSFTrigger_Down",
+    "Weight_ElectronSFTrigger_Up",
+    "Weight_MuonSFID",
+    "Weight_MuonSFID_Down",
+    "Weight_MuonSFID_Up",
+    "Weight_MuonSFIso",
+    "Weight_MuonSFIso_Up",
+    "Weight_MuonSFIso_Down",
+    "Weight_MuonSFTrigger",
+    "Weight_MuonSFTrigger_Down",
+    "Weight_MuonSFTrigger_Up"
+]
 
 # add these variables to the variable list
 dataset.addVariables(additional_variables)

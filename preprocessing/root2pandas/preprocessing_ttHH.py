@@ -70,16 +70,12 @@ dataset.addSample(
     ntuples     = "/eos/user/l/lprado/ttHH_ntuples/TTHHTo4b_forDNN/*nominal*.root",
     categories  = ttHH_categories,
     selections  = ttHH_selection)
-    #MEMs        = "/nfs/dust/cms/user/vdlinden/MEM_2017/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8_MEM/*.root",
-    #CNNmaps     = "/nfs/dust/cms/user/vdlinden/DRACO-MLfoy/workdir/miniAOD_files/CNN_files/ttHbb.h5")
 
 dataset.addSample(
     sampleName  = "TTToSL",
     ntuples     = "/eos/user/l/lprado/ttHH_ntuples/TTToSemiLeptonic_forDNN/*nominal*.root",
     categories  = ttbar_categories,
     selections  = None)#ttbar_selection)
-    #MEMs        = "/nfs/dust/cms/user/vdlinden/MEM_2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8_MEM/*.root",
-    #CNNmaps     = "/nfs/dust/cms/user/vdlinden/DRACO-MLfoy/workdir/miniAOD_files/CNN_files/TTToSL.h5")
 
 # initialize variable list 
 dataset.addVariables(variable_set.all_variables)

@@ -6,7 +6,7 @@ basedir = os.path.dirname(os.path.dirname(filedir))
 sys.path.append(basedir)
 
 import root2pandas
-import variable_sets.ttHH_topVariables as variable_set
+import variable_sets.ttHH_allVariables as variable_set
 
 
 
@@ -57,7 +57,7 @@ ttbar_categories.addCategory("ttcc", selection = "(GenEvt_I_TTPlusBB == 0 and Ge
 
 # initialize dataset class
 dataset = root2pandas.Dataset(
-    outputdir   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_data/",
+    outputdir   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_data_allVar/",
     naming      = "dnn",
     addCNNmap   = False,
     addMEM      = False)
