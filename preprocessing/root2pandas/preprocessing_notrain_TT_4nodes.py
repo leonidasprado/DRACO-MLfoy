@@ -1,0 +1,236 @@
+import os
+import sys
+# local imports
+filedir = os.path.dirname(os.path.realpath(__file__))
+basedir = os.path.dirname(os.path.dirname(filedir))
+sys.path.append(basedir)
+
+import root2pandas
+import variable_sets.ttHH_topVariables_4n as variable_set
+
+
+
+# define a base event selection which is applied for all Samples
+base_selection = "\
+( \
+(N_Jets >= 4 and N_BTagsM >= 3 and Evt_Pt_MET > 20. and Weight_GEN_nom > 0.) \
+and (\
+(N_LooseMuons == 0 and N_TightElectrons == 1 and (Triggered_HLT_Ele35_WPTight_Gsf_vX == 1 or Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX == 1)) \
+or \
+(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 29. and Triggered_HLT_IsoMu27_vX == 1) \
+) \
+)"
+
+
+# define other additional selections
+ttbar_selection = "(\
+abs(Weight_scale_variation_muR_0p5_muF_0p5) <= 100 and \
+abs(Weight_scale_variation_muR_0p5_muF_1p0) <= 100 and \
+abs(Weight_scale_variation_muR_0p5_muF_2p0) <= 100 and \
+abs(Weight_scale_variation_muR_1p0_muF_0p5) <= 100 and \
+abs(Weight_scale_variation_muR_1p0_muF_1p0) <= 100 and \
+abs(Weight_scale_variation_muR_1p0_muF_2p0) <= 100 and \
+abs(Weight_scale_variation_muR_2p0_muF_0p5) <= 100 and \
+abs(Weight_scale_variation_muR_2p0_muF_1p0) <= 100 and \
+abs(Weight_scale_variation_muR_2p0_muF_2p0) <= 100 \
+)"
+
+ttHH_selection = "(Evt_Odd == 0)"
+
+# define output classes
+ttHH_categories = root2pandas.EventCategories()
+ttHH_categories.addCategory("ttHH4b", selection = None)
+
+ttHHJESup_categories = root2pandas.EventCategories()
+ttHHJESup_categories.addCategory("ttHH4b_JESUp", selection = None)
+
+ttHHJESdown_categories = root2pandas.EventCategories()
+ttHHJESdown_categories.addCategory("ttHH4b_JESDown", selection = None)
+
+ttHHJERup_categories = root2pandas.EventCategories()
+ttHHJERup_categories.addCategory("ttHH4b_JERUp", selection = None)
+
+ttHHJERdown_categories = root2pandas.EventCategories()
+ttHHJERdown_categories.addCategory("ttHH4b_JERDown", selection = None)
+
+
+
+ttH_categories = root2pandas.EventCategories()
+ttH_categories.addCategory("ttHbb", selection = None)
+
+ttHJESup_categories = root2pandas.EventCategories()
+ttHJESup_categories.addCategory("ttHbb_JESUp", selection = None)
+
+ttHJESdown_categories = root2pandas.EventCategories()
+ttHJESdown_categories.addCategory("ttHbb_JESDown", selection = None)
+
+ttHJERup_categories = root2pandas.EventCategories()
+ttHJERup_categories.addCategory("ttHbb_JERUp", selection = None)
+
+ttHJERdown_categories = root2pandas.EventCategories()
+ttHJERdown_categories.addCategory("ttHbb_JERDown", selection = None)
+
+
+
+ttbar_categories = root2pandas.EventCategories()
+ttbar_categories.addCategory("tthf",  selection = "(GenEvt_I_TTPlusBB >= 1 and GenEvt_I_TTPlusCC == 0)")
+ttbar_categories.addCategory("ttlf", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 0)")
+ttbar_categories.addCategory("ttcc", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 1)")
+
+
+ttbarJESup_categories = root2pandas.EventCategories()
+ttbarJESup_categories.addCategory("tthf_JESUp",  selection = "(GenEvt_I_TTPlusBB >= 1 and GenEvt_I_TTPlusCC == 0)")
+ttbarJESup_categories.addCategory("ttlf_JESUp", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 0)")
+ttbarJESup_categories.addCategory("ttcc_JESUp", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 1)")
+
+ttbarJESdown_categories = root2pandas.EventCategories()
+ttbarJESdown_categories.addCategory("tthf_JESDown",  selection = "(GenEvt_I_TTPlusBB >= 1 and GenEvt_I_TTPlusCC == 0)")
+ttbarJESdown_categories.addCategory("ttlf_JESDown", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 0)")
+ttbarJESdown_categories.addCategory("ttcc_JESDown", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 1)")
+
+ttbarJERup_categories = root2pandas.EventCategories()
+ttbarJERup_categories.addCategory("tthf_JERUp",  selection = "(GenEvt_I_TTPlusBB >= 1 and GenEvt_I_TTPlusCC == 0)")
+ttbarJERup_categories.addCategory("ttlf_JERUp", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 0)")
+ttbarJERup_categories.addCategory("ttcc_JERUp", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 1)")
+
+ttbarJERdown_categories = root2pandas.EventCategories()
+ttbarJERdown_categories.addCategory("tthf_JERDown",  selection = "(GenEvt_I_TTPlusBB >= 1 and GenEvt_I_TTPlusCC == 0)")
+ttbarJERdown_categories.addCategory("ttlf_JERDown", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 0)")
+ttbarJERdown_categories.addCategory("ttcc_JERDown", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 1)")
+
+
+
+
+# initialize dataset class
+dataset = root2pandas.Dataset(
+    outputdir   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_4nodes_syst-topvar/",
+    naming      = "dnn",
+    addCNNmap   = False,
+    addMEM      = False)
+
+# add base event selection
+dataset.addBaseSelection(base_selection)
+
+
+
+
+
+
+# add samples to dataset
+#dataset.addSample(
+#    sampleName  = "ttHH4b",
+#    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTHHTo4b_forDNN/*nominal*.root",
+#    categories  = ttHH_categories,
+#    selections  = ttHH_selection)
+
+#dataset.addSample(
+#    sampleName  = "ttHH4bJESup",
+#    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTHHTo4b_forDNN/*JESup*.root", 
+#    categories  = ttHHJESup_categories,
+#    selections  = ttHH_selection)
+
+#dataset.addSample(
+#    sampleName  = "ttHH4bJESdown",
+#    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTHHTo4b_forDNN/*JESdown*.root", 
+#    categories  = ttHHJESdown_categories,
+#    selections  = ttHH_selection)
+
+#dataset.addSample(
+#    sampleName  = "ttHH4bJERup",
+#    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTHHTo4b_forDNN/*JERup*.root",
+#    categories  = ttHHJERup_categories,
+#    selections  = ttHH_selection)
+
+#dataset.addSample(
+#    sampleName  = "ttHH4bJERdown",
+#    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTHHTo4b_forDNN/*JERdown*.root",
+#    categories  = ttHHJERdown_categories,
+#    selections  = ttHH_selection)
+
+
+
+
+dataset.addSample(
+    sampleName  = "TTToSL",
+    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTToSemiLeptonic/*nominal*.root",
+    categories  = ttbar_categories,
+    selections  = None)#ttbar_selection)
+
+dataset.addSample(
+    sampleName  = "TTToSLJESup",
+    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTToSemiLeptonic/*JESup*.root",
+    categories  = ttbarJESup_categories,
+    selections  = None)#ttbar_selection)
+
+dataset.addSample(
+    sampleName  = "TTToSLJESdown",
+    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTToSemiLeptonic/*JESdown*.root",
+    categories  = ttbarJESdown_categories,
+    selections  = None)#ttbar_selection)
+
+dataset.addSample(
+    sampleName  = "TTToSLJERup",
+    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTToSemiLeptonic/*JERup*.root",
+    categories  = ttbarJERup_categories,
+    selections  = None)#ttbar_selection)
+
+dataset.addSample(
+    sampleName  = "TTToSLJERdown",
+    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/TTToSemiLeptonic/*JERdown*.root",
+    categories  = ttbarJERdown_categories,
+    selections  = None)#ttbar_selection)
+
+
+
+
+#dataset.addSample(
+#    sampleName  = "ttHbb",
+#    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/ttHTobb/*nominal*.root",
+#    categories  = ttH_categories,
+#    selections  = ttHH_selection)
+
+#dataset.addSample(
+#    sampleName  = "ttHbbJESup",
+#    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/ttHTobb/*JESup*.root",
+#    categories  = ttHJESup_categories,
+#    selections  = ttHH_selection)
+
+#dataset.addSample(
+#    sampleName  = "ttHbbJESdown",
+#    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/ttHTobb/*JESdown*.root",
+#    categories  = ttHJESdown_categories,
+#    selections  = ttHH_selection)
+
+#dataset.addSample(
+#    sampleName  = "ttHbbJERup",
+#    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/ttHTobb/*JERup*.root",
+#    categories  = ttHJERup_categories,
+#    selections  = ttHH_selection)
+
+#dataset.addSample(
+#    sampleName  = "ttHbbJERdown",
+#    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/syst_ntuples/ttHTobb/*JERdown*.root",
+#    categories  = ttHJERdown_categories,
+#    selections  = ttHH_selection)
+
+
+# initialize variable list 
+dataset.addVariables(variable_set.all_variables)
+
+# define an additional variable list
+additional_variables = [
+    "N_Jets",
+    "N_BTagsM",
+    "N_BTagsL",
+    "Weight_XS",
+    "Weight_CSV",
+    "Weight_GEN_nom",
+    "Evt_ID", 
+    "Evt_Run", 
+    "Evt_Lumi"]
+
+# add these variables to the variable list
+dataset.addVariables(additional_variables)
+
+# run the preprocessing
+dataset.runPreprocessing()
