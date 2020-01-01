@@ -52,11 +52,11 @@ class DataFrame(object):
                 #=> if it is nominal, this will be the case.
             # if it is not btag related, remove the nominal and add the syst.
             onlyttbarlist=("GenWeight_8","GenWeight_6","GenWeight_9","GenWeight_7"\
-                          ,"Weight_LHA_306000_up","Weight_LHA_306000_down","Weight_scale_variation_muR_2p0_muF_1p0","Weight_scale_variation_muR_0p5_muF_1p0","Weight_scale_variation_muR_1p0_muF_2p0","Weight_scale_variation_muR_1p0_muF_0p5"\
+                          # ,"Weight_LHA_306000_up","Weight_LHA_306000_down","Weight_scale_variation_muR_2p0_muF_1p0","Weight_scale_variation_muR_0p5_muF_1p0","Weight_scale_variation_muR_1p0_muF_2p0","Weight_scale_variation_muR_1p0_muF_0p5"\
                           )
             if "data" in cls:
               cls_df = cls_df.assign(lumi_weight = lambda x: x.Weight_XS * x.Weight_CSV)
-            elif "ttH" in cls and systematics not in onlyttbarlist:
+            elif "ttHH4b" in cls and systematics not in onlyttbarlist:
               cls_df = cls_df.assign(lumi_weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi)
               if "Weight_pu69p2" in systematics:
                 cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi)
@@ -76,8 +76,8 @@ class DataFrame(object):
                 cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi)
 #              print("old lumi: ", cls_df["lumi_weight"])
 #              print("new lumi", cls_df["lumi_weight_syst"])
-            elif "ttH" not in cls:
-              cls_df = cls_df.assign(lumi_weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * x.Weight_LHA_306000_nominal * lumi)
+            elif "ttHH4b" not in cls:
+              cls_df = cls_df.assign(lumi_weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi)
               if "Weight_pu69p2" in systematics:
                 cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * x.Weight_LHA_306000_nominal * lumi)
               elif "Weight_ElectronSFGFS" in systematics:
@@ -95,7 +95,7 @@ class DataFrame(object):
               elif "Weight_LHA_306000" in systematics:
                 cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * lumi)
               else:
-                cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * x.Weight_LHA_306000_nominal * lumi)
+                cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi)
 #              print("old lumi: ", cls_df["lumi_weight"])
 #              print("new lumi", cls_df["lumi_weight_syst"])
 

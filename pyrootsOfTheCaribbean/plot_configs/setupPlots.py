@@ -6,21 +6,23 @@ import numpy as np
 # dictionary for colors
 def GetPlotColor( cls ):
     color_dict = {
-        "ttZ":   ROOT.kBlue+4,
-        "ttHH4b":   ROOT.kBlue+1,
+        "ttZ":    ROOT.kBlue+4,
+        "ttHH4b": ROOT.kBlue+1,
         "ttHH":   ROOT.kBlue+1,
-        "ttHbb":   ROOT.kGreen+3,
-	"ttH":   ROOT.kGreen+3,
-        "ttbar": ROOT.kRed-7,
-        "ttlf":  ROOT.kRed-7,
-        "ttcc":  ROOT.kRed+1,
-        "ttbb":  ROOT.kRed+3,
-        "tt2b":  ROOT.kRed+2,
-        "ttb":   ROOT.kRed-2,
-        "tthf":  ROOT.kRed+3,
-        "data":  ROOT.kMagenta,
-        "False": "orangered",
-        "True":  "teal"
+        "ttHbb":  ROOT.kGreen+3,
+	"ttH":    ROOT.kGreen+3,
+        "ttbar":  ROOT.kRed-7,
+        "ttbbb":  ROOT.kRed+4,
+        "tt4b":   ROOT.kGreen+1,
+        "ttlf":   ROOT.kRed-7,
+        "ttcc":   ROOT.kRed+1,
+        "ttbb":   ROOT.kRed+3,
+        "tt2b":   ROOT.kRed+2,
+        "ttb":    ROOT.kRed-2,
+        "tthf":   ROOT.kRed+3,
+        "data":   ROOT.kMagenta,
+        "False":  "orangered",
+        "True":   "teal"
         }
 
     #if "ttH" in cls: cls = "ttHbb"
@@ -33,8 +35,8 @@ def setupHistogram(
         values, weights, 
         nbins, bin_range, color,
         xtitle, ytitle, filled = True):
-    # define histogram
-    histogram = ROOT.TH1D(xtitle.replace(" ","_"), "", nbins, *bin_range)
+    # define histogram. the * before bin_range is important depening on what is on DNN3.py (default is with the *)
+    histogram = ROOT.TH1D(xtitle.replace(" ","_"), "", nbins, bin_range)
     histogram.Sumw2(True)    
 
     for v, w in zip(values, weights):

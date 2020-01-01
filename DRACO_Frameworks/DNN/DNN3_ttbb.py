@@ -15,7 +15,7 @@ from pyrootsOfTheCaribbean.evaluationScripts import plottingScripts2 as plotting
 # imports with keras
 import utils.generateJTcut as JTcut
 import architecture as arch
-import data_frame2 as data_frame
+import data_frame3_ttbb as data_frame
 
 import keras
 import keras.models as models

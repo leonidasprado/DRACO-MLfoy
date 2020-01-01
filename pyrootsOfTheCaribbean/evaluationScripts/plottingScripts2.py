@@ -260,6 +260,8 @@ class plotDiscriminatorsPretty:
             # set scalefactor
             scaleFactor = weightIntegral/(sum(sig_weights)+1e-9)
             sigHist.Scale(scaleFactor)
+            #poor hard coding below:
+            bkgHists[5].Scale(scaleFactor/200)
 
             plotOptions = {
                 "ratio":      ratio,
@@ -274,11 +276,12 @@ class plotDiscriminatorsPretty:
 
             # add signal entry
             legend.AddEntry(sigHist, sig_label+" x {:4.0f}".format(scaleFactor), "L")
-
+            
             # add background entries
             for i, h in enumerate(bkgHists):
                 legend.AddEntry(h, bkgLabels[i], "F")
-
+            #poor hard coding below:
+            legend.AddEntry(bkgHists[5], sig_label+" x {:4.0f}".format(scaleFactor/200), "L")
             # draw legend
             legend.Draw("same")
 
