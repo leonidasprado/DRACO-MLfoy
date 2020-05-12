@@ -37,7 +37,7 @@ def setupHistogram(
         nbins, bin_range, color,
         xtitle, ytitle, filled = True):
     # define histogram. the * before bin_range is important depening on what is on DNN3.py (default is with the *)
-    histogram = ROOT.TH1D(xtitle.replace(" ","_"), "", nbins,*bin_range)
+    histogram = ROOT.TH1D(xtitle.replace(" ","_"), "", nbins, *bin_range)
     histogram.Sumw2(True)    
 
     for v, w in zip(values, weights):
@@ -139,7 +139,7 @@ def draw2DHistOnCanvas(hist, canvasName, catLabel, ROC = None, ROCerr = None):
 
     
 
-def drawHistsOnCanvas(sigHists, bkgHists, plotOptions, canvasName):
+def drawHistsOnCanvas(sigHists, bkgHists, datHists, plotOptions, canvasName):
     if not isinstance(sigHists, list):
         sigHists = [sigHists]
 
@@ -149,6 +149,8 @@ def drawHistsOnCanvas(sigHists, bkgHists, plotOptions, canvasName):
     for h in bkgHists:
         moveOverUnderFlow(h)
     for h in sigHists:
+        moveOverUnderFlow(h)
+    for h in datHists:
         moveOverUnderFlow(h)
     
     # stack Histograms
@@ -200,6 +202,14 @@ def drawHistsOnCanvas(sigHists, bkgHists, plotOptions, canvasName):
     for sH in sigHists:
         # draw signal histogram
         sH.DrawCopy(option+" E0 same")
+
+    # draw DATA histograms
+    for dH in datHists:
+        # draw DATA histogram
+        dH.SetMarkerStyle(20)
+        dH.SetMarkerColor(ROOT.kBlack)
+        ROOT.gStyle.SetErrorX(0)
+        dH.DrawCopy("sameP")
     
     errorGraph.Draw("same")
 
@@ -226,8 +236,8 @@ def drawHistsOnCanvas(sigHists, bkgHists, plotOptions, canvasName):
         line.SetLineColor(ROOT.kBlack)
         line.DrawCopy("histo")
         # ratio plots
-        for sigHist in sigHists:
-            ratioPlot = sigHist.Clone()
+        for datHist in datHists:
+            ratioPlot = datHist.Clone()
             ratioPlot.Divide(bkgHists[0])
             ratioPlot.SetTitle(canvasName)
             ratioPlot.SetLineColor(ROOT.kBlack)

@@ -10,7 +10,10 @@ basedir  = os.path.dirname(DRACOdir)
 sys.path.append(basedir)
 
 # import with ROOT
-from pyrootsOfTheCaribbean.evaluationScripts import plottingScripts
+#fixing strange error
+sys.path.append("/afs/cern.ch/work/l/lprado/DRACO-MLfoy/pyrootsOfTheCaribbean/evaluationScripts")
+import plottingScripts as plottingScripts
+#from pyrootsOfTheCaribbean.evaluationScripts import plottingScripts
 
 # imports with keras
 import utils.generateJTcut as JTcut

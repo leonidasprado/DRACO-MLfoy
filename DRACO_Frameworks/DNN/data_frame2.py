@@ -56,7 +56,7 @@ class DataFrame(object):
                           )
             if "data" in cls:
               cls_df = cls_df.assign(lumi_weight = lambda x: x.Weight_XS * x.Weight_CSV)
-            elif "ttH" in cls and systematics not in onlyttbarlist:
+            elif ("ttH" in cls or "SingleTop" in cls) and systematics not in onlyttbarlist:
               cls_df = cls_df.assign(lumi_weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi)
               if "Weight_pu69p2" in systematics:
                 cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi)
@@ -76,7 +76,7 @@ class DataFrame(object):
                 cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi)
 #              print("old lumi: ", cls_df["lumi_weight"])
 #              print("new lumi", cls_df["lumi_weight_syst"])
-            elif "ttH" not in cls:
+            elif "ttH" not in cls and "SingleTop" not in cls:
               cls_df = cls_df.assign(lumi_weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * x.Weight_LHA_306000_nominal * lumi)
               if "Weight_pu69p2" in systematics:
                 cls_df = cls_df.assign(lumi_weight_syst = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.eval(systematics) * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * x.Weight_LHA_306000_nominal * lumi)

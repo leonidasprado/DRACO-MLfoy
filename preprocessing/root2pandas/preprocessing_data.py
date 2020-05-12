@@ -17,81 +17,41 @@ base_selection = "\
 and (\
 (N_LooseMuons == 0 and N_TightElectrons == 1 and (Triggered_HLT_Ele35_WPTight_Gsf_vX == 1 or Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX == 1)) \
 or \
+(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 29. and (Triggered_HLT_IsoMu24_eta2p1_vX == 1 or Triggered_HLT_IsoMu27_vX == 1)) \
+) \
+)"
+
+base_selectionMuEF = "\
+( \
+(N_Jets >= 4 and N_BTagsM >= 2 and Evt_Pt_MET > 20.) \
+and (\
+(N_LooseMuons == 0 and N_TightElectrons == 1 and (Triggered_HLT_Ele35_WPTight_Gsf_vX == 1 or Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX == 1)) \
+or \
 (N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 29. and Triggered_HLT_IsoMu27_vX == 1) \
 ) \
 )"
 
 
 # define other additional selections
-ttbar_selection = "(\
-abs(Weight_scale_variation_muR_0p5_muF_0p5) <= 100 and \
-abs(Weight_scale_variation_muR_0p5_muF_1p0) <= 100 and \
-abs(Weight_scale_variation_muR_0p5_muF_2p0) <= 100 and \
-abs(Weight_scale_variation_muR_1p0_muF_0p5) <= 100 and \
-abs(Weight_scale_variation_muR_1p0_muF_1p0) <= 100 and \
-abs(Weight_scale_variation_muR_1p0_muF_2p0) <= 100 and \
-abs(Weight_scale_variation_muR_2p0_muF_0p5) <= 100 and \
-abs(Weight_scale_variation_muR_2p0_muF_1p0) <= 100 and \
-abs(Weight_scale_variation_muR_2p0_muF_2p0) <= 100 \
-)"
-
-ttHH_selection = "(Evt_Odd == 1)"
 
 # define output classes
-ttHH_categories = root2pandas.EventCategories()
-ttHH_categories.addCategory("ttHH4b", selection = None)
-
-ttH_categories = root2pandas.EventCategories()
-ttH_categories.addCategory("ttHbb", selection = None)
-
 data_categories = root2pandas.EventCategories()
 data_categories.addCategory("data_obs", selection = None)
 
-ttbar_categories = root2pandas.EventCategories()
-ttbar_categories.addCategory("ttbb", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0)")
-ttbar_categories.addCategory("tt2b", selection = "(GenEvt_I_TTPlusBB == 2 and GenEvt_I_TTPlusCC == 0)")
-ttbar_categories.addCategory("ttb",  selection = "(GenEvt_I_TTPlusBB == 1 and GenEvt_I_TTPlusCC == 0)")
-ttbar_categories.addCategory("ttlf", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 0)")
-ttbar_categories.addCategory("ttcc", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 1)")
-
+outdirdata="/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_May11_data/"
+outdir=outdirdata
+if not os.path.exists(outdir):
+    os.makedirs(outdir)
 
 # initialize dataset class
 dataset = root2pandas.Dataset(
-    outputdir   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_data_allVar/",
+    outputdir   = outdir,
     naming      = "dnn",
     addCNNmap   = False,
     addMEM      = False)
 
 # add base event selection
 dataset.addBaseSelection(base_selection)
-
-
-
-
-
-
-# add samples to dataset
-#dataset.addSample(
-#    sampleName  = "ttHH4b",
-#    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/TTHHTo4b_forDNN/*nominal*.root",
-#    categories  = ttHH_categories,
-#    selections  = ttHH_selection)
-    #MEMs        = "/nfs/dust/cms/user/vdlinden/MEM_2017/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8_MEM/*.root",
-    #CNNmaps     = "/nfs/dust/cms/user/vdlinden/DRACO-MLfoy/workdir/miniAOD_files/CNN_files/ttHbb.h5")
-
-#dataset.addSample(
-#    sampleName  = "TTToSL",
-#    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/TTToSemiLeptonic_forDNN/*nominal*.root",
-#    categories  = ttbar_categories,
-#    selections  = None)#ttbar_selection)
-    #MEMs        = "/nfs/dust/cms/user/vdlinden/MEM_2017/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8_MEM/*.root",
-    #CNNmaps     = "/nfs/dust/cms/user/vdlinden/DRACO-MLfoy/workdir/miniAOD_files/CNN_files/TTToSL.h5")
-
-#dataset.addSample(
-#    sampleName  = "ttHbb",
-#    ntuples     = "/eos/user/l/lprado/ttHH_ntuples/ttHTobb_forDNN/*nominal*.root",
-#    categories  = ttH_categories,
-#    selections  = ttHH_selection)
 
 dataset.addSample(
     sampleName  = "dataEB",
@@ -138,12 +98,12 @@ dataset.addSample(
     sampleName  = "dataME",
     ntuples     = "/eos/user/l/lprado/ttHH_ntuples/data/SingleMuonE/*nominal*.root",
     categories  = data_categories,
-    selections  = None)
+    selections  = base_selectionMuEF)
 dataset.addSample(
     sampleName  = "dataMF",
     ntuples     = "/eos/user/l/lprado/ttHH_ntuples/data/SingleMuonF/*nominal*.root",
     categories  = data_categories,
-    selections  = None)
+    selections  = base_selectionMuEF)
 
 
 # initialize variable list 

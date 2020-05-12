@@ -17,12 +17,10 @@ base_selection = "\
 and (\
 (N_LooseMuons == 0 and N_TightElectrons == 1 and (Triggered_HLT_Ele35_WPTight_Gsf_vX == 1 or Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX == 1)) \
 or \
-(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 29. and Triggered_HLT_IsoMu27_vX == 1) \
+(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 29. and (Triggered_HLT_IsoMu24_eta2p1_vX == 1 or Triggered_HLT_IsoMu27_vX == 1)) \
 ) \
 )"
 
-
-# define other additional selections
 ttbar_selection = "(\
 abs(Weight_scale_variation_muR_0p5_muF_0p5) <= 100 and \
 abs(Weight_scale_variation_muR_0p5_muF_1p0) <= 100 and \
@@ -34,8 +32,6 @@ abs(Weight_scale_variation_muR_2p0_muF_0p5) <= 100 and \
 abs(Weight_scale_variation_muR_2p0_muF_1p0) <= 100 and \
 abs(Weight_scale_variation_muR_2p0_muF_2p0) <= 100 \
 )"
-
-ttHH_selection = "(Evt_Odd == 0)"
 
 #definitions
 ttbarJERup_categories = root2pandas.EventCategories()
@@ -84,8 +80,8 @@ ttbarJESPileUpPtEC1Down_categories = root2pandas.EventCategories()
 #dictionary
 #systematics=["JESAbsoluteStatUp","JESAbsoluteStatDown","JESAbsoluteScaleUp","JESAbsoluteScaleDown","JESAbsoluteMPFBiasUp","JESAbsoluteMPFBiasDown","JESFragmentationUp","JESFragmentationDown","JESSinglePionECALUp","JESSinglePionECALDown","JESSinglePionHCALUp","JESSinglePionHCALDown","JESFlavorQCDUp","JESFlavorQCDDown","JESTimePtEtaUp","JESTimePtEtaDown","JESRelativePtBBUp","JESRelativePtBBDown","JESRelativePtEC1Up","JESRelativePtEC1Down","JESRelativeBalUp","JESRelativeBalDown","JESRelativeFSRUp","JESRelativeFSRDown","JESRelativeStatFSRUp","JESRelativeStatFSRDown","JESRelativeStatECUp","JESRelativeStatECDown","JESPileUpPtRefUp","JESPileUpPtRefDown","JESPileUpPtBBUp","JESPileUpPtBBDown","JESPileUpPtEC1Up","JESPileUpPtEC1Down"]
 #systematics2=["JESAbsoluteStatup","JESAbsoluteStatdown","JESAbsoluteScaleup","JESAbsoluteScaledown","JESAbsoluteMPFBiasup","JESAbsoluteMPFBiasdown","JESFragmentationup","JESFragmentationdown","JESSinglePionECALup","JESSinglePionECALdown","JESSinglePionHCALup","JESSinglePionHCALdown","JESFlavorQCDup","JESFlavorQCDdown","JESTimePtEtaup","JESTimePtEtadown","JESRelativePtBBup","JESRelativePtBBdown","JESRelativePtEC1up","JESRelativePtEC1down","JESRelativeBalup","JESRelativeBaldown","JESRelativeFSRup","JESRelativeFSRdown","JESRelativeStatFSRup","JESRelativeStatFSRdown","JESRelativeStatECup","JESRelativeStatECdown","JESPileUpPtRefup","JESPileUpPtRefdown","JESPileUpPtBBup","JESPileUpPtBBdown","JESPileUpPtEC1up","JESPileUpPtEC1down"]
-systematics=["JESRelativeJEREC1Up","JESRelativeJEREC1Down","JESPileUpDataMCUp","JESPileUpDataMCDown"]
-systematics2=["JESRelativeJEREC1up","JESRelativeJEREC1down","JESPileUpDataMCup","JESPileUpDataMCdown"]
+systematics=["JESUp","JESDown","JERUp","JERDown"]
+systematics2=["JESup","JESdown","JERup","JERdown"]
 
 
 #dict definition
@@ -109,9 +105,14 @@ for systs in systematics:
    dict_syst_ttbar[systs].addCategory("ttlf_"+systs, selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 0)")
    dict_syst_ttbar[systs].addCategory("ttcc_"+systs, selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 1)")
 
+#some definitions
+outdirttbar="/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_May11_ttbar_syst/"
+outdir=outdirttbar
+if not os.path.exists(outdir):
+    os.makedirs(outdir)
 # initialize dataset class
 dataset = root2pandas.Dataset(
-    outputdir   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_syst-allVar-ttbar-systntuples_7/",
+    outputdir   = outdir,
     naming      = "dnn",
     addCNNmap   = False,
     addMEM      = False)
@@ -123,10 +124,21 @@ dataset.addBaseSelection(base_selection)
 for ii, systs in enumerate(systematics2):
   dataset.addSample(
       sampleName  = "TTToSL"+str(systs),
-      ntuples     = "/eos/user/l/lprado/ttHH_ntuples/TTToSemileptonic_1/7Part/*"+str(systs)+"*.root",
+      ntuples     = "/eos/user/l/lprado/TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8/*"+str(systs)+"*.root",
       categories  = dict_syst_ttbar[str(systematics[ii])],
       selections  = None)
 
+  dataset.addSample(
+      sampleName  = "TTToHad"+str(systs),
+      ntuples     = "/eos/user/l/lprado/TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8/*"+str(systs)+"*.root",
+      categories  = dict_syst_ttbar[str(systematics[ii])],
+      selections  = None)
+
+  dataset.addSample(
+      sampleName  = "TTToLep"+str(systs),
+      ntuples     = "/eos/user/l/lprado/TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8/*"+str(systs)+"*.root",
+      categories  = dict_syst_ttbar[str(systematics[ii])],
+      selections  = None)
 	  
 # initialize variable list 
 dataset.addVariables(variable_set.all_variables)

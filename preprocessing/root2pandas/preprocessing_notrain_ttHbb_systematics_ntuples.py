@@ -17,7 +17,7 @@ base_selection = "\
 and (\
 (N_LooseMuons == 0 and N_TightElectrons == 1 and (Triggered_HLT_Ele35_WPTight_Gsf_vX == 1 or Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX == 1)) \
 or \
-(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 29. and Triggered_HLT_IsoMu27_vX == 1) \
+(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 29. and (Triggered_HLT_IsoMu24_eta2p1_vX == 1 or Triggered_HLT_IsoMu27_vX == 1)) \
 ) \
 )"
 
@@ -66,8 +66,10 @@ ttHbbJESPileUpPtEC1Up_categories = root2pandas.EventCategories()
 ttHbbJESPileUpPtEC1Down_categories = root2pandas.EventCategories()
 
 #dictionary
-systematics=["JERUp","JERDown","JESUp","JESDown","JESAbsoluteStatUp","JESAbsoluteStatDown","JESAbsoluteScaleUp","JESAbsoluteScaleDown","JESAbsoluteMPFBiasUp","JESAbsoluteMPFBiasDown","JESFragmentationUp","JESFragmentationDown","JESSinglePionECALUp","JESSinglePionECALDown","JESSinglePionHCALUp","JESSinglePionHCALDown","JESFlavorQCDUp","JESFlavorQCDDown","JESTimePtEtaUp","JESTimePtEtaDown","JESRelativeJEREC1Up","JESRelativeJEREC1Down","JESRelativePtBBUp","JESRelativePtBBDown","JESRelativePtEC1Up","JESRelativePtEC1Down","JESRelativeBalUp","JESRelativeBalDown","JESRelativeFSRUp","JESRelativeFSRDown","JESRelativeStatFSRUp","JESRelativeStatFSRDown","JESRelativeStatECUp","JESRelativeStatECDown","JESPileUpDataMCUp","JESPileUpDataMCDown","JESPileUpPtRefUp","JESPileUpPtRefDown","JESPileUpPtBBUp","JESPileUpPtBBDown","JESPileUpPtEC1Up","JESPileUpPtEC1Down"]
-systematics2=["JERup","JERdown","JESup","JESdown","JESAbsoluteStatup","JESAbsoluteStatdown","JESAbsoluteScaleup","JESAbsoluteScaledown","JESAbsoluteMPFBiasup","JESAbsoluteMPFBiasdown","JESFragmentationup","JESFragmentationdown","JESSinglePionECALup","JESSinglePionECALdown","JESSinglePionHCALup","JESSinglePionHCALdown","JESFlavorQCDup","JESFlavorQCDdown","JESTimePtEtaup","JESTimePtEtadown","JESRelativeJEREC1up","JESRelativeJEREC1down","JESRelativePtBBup","JESRelativePtBBdown","JESRelativePtEC1up","JESRelativePtEC1down","JESRelativeBalup","JESRelativeBaldown","JESRelativeFSRup","JESRelativeFSRdown","JESRelativeStatFSRup","JESRelativeStatFSRdown","JESRelativeStatECup","JESRelativeStatECdown","JESPileUpDataMCup","JESPileUpDataMCdown","JESPileUpPtRefup","JESPileUpPtRefdown","JESPileUpPtBBup","JESPileUpPtBBdown","JESPileUpPtEC1up","JESPileUpPtEC1down"]
+#systematics=["JERUp","JERDown","JESUp","JESDown","JESAbsoluteStatUp","JESAbsoluteStatDown","JESAbsoluteScaleUp","JESAbsoluteScaleDown","JESAbsoluteMPFBiasUp","JESAbsoluteMPFBiasDown","JESFragmentationUp","JESFragmentationDown","JESSinglePionECALUp","JESSinglePionECALDown","JESSinglePionHCALUp","JESSinglePionHCALDown","JESFlavorQCDUp","JESFlavorQCDDown","JESTimePtEtaUp","JESTimePtEtaDown","JESRelativeJEREC1Up","JESRelativeJEREC1Down","JESRelativePtBBUp","JESRelativePtBBDown","JESRelativePtEC1Up","JESRelativePtEC1Down","JESRelativeBalUp","JESRelativeBalDown","JESRelativeFSRUp","JESRelativeFSRDown","JESRelativeStatFSRUp","JESRelativeStatFSRDown","JESRelativeStatECUp","JESRelativeStatECDown","JESPileUpDataMCUp","JESPileUpDataMCDown","JESPileUpPtRefUp","JESPileUpPtRefDown","JESPileUpPtBBUp","JESPileUpPtBBDown","JESPileUpPtEC1Up","JESPileUpPtEC1Down"]
+#systematics2=["JERup","JERdown","JESup","JESdown","JESAbsoluteStatup","JESAbsoluteStatdown","JESAbsoluteScaleup","JESAbsoluteScaledown","JESAbsoluteMPFBiasup","JESAbsoluteMPFBiasdown","JESFragmentationup","JESFragmentationdown","JESSinglePionECALup","JESSinglePionECALdown","JESSinglePionHCALup","JESSinglePionHCALdown","JESFlavorQCDup","JESFlavorQCDdown","JESTimePtEtaup","JESTimePtEtadown","JESRelativeJEREC1up","JESRelativeJEREC1down","JESRelativePtBBup","JESRelativePtBBdown","JESRelativePtEC1up","JESRelativePtEC1down","JESRelativeBalup","JESRelativeBaldown","JESRelativeFSRup","JESRelativeFSRdown","JESRelativeStatFSRup","JESRelativeStatFSRdown","JESRelativeStatECup","JESRelativeStatECdown","JESPileUpDataMCup","JESPileUpDataMCdown","JESPileUpPtRefup","JESPileUpPtRefdown","JESPileUpPtBBup","JESPileUpPtBBdown","JESPileUpPtEC1up","JESPileUpPtEC1down"]
+systematics=["JESUp","JESDown","JERUp","JERDown"]
+systematics2=["JESup","JESdown","JERup","JERdown"]
 
 #dict definition
 dict_syst_ttHbb={"JERUp": ttHbbJERup_categories, "JERDown":ttHbbJERdown_categories, "JESUp": ttHbbJESup_categories, "JESDown":ttHbbJESdown_categories,"JESAbsoluteStatUp":ttHbbJESAbsoluteStatUp_categories,"JESAbsoluteStatDown":ttHbbJESAbsoluteStatDown_categories,"JESAbsoluteScaleUp":ttHbbJESAbsoluteScaleUp_categories,"JESAbsoluteScaleDown":ttHbbJESAbsoluteScaleDown_categories,"JESAbsoluteMPFBiasUp":ttHbbJESAbsoluteMPFBiasUp_categories,"JESAbsoluteMPFBiasDown":ttHbbJESAbsoluteMPFBiasDown_categories,"JESFragmentationUp":ttHbbJESFragmentationUp_categories,"JESFragmentationDown":ttHbbJESFragmentationDown_categories,"JESSinglePionECALUp":ttHbbJESSinglePionECALUp_categories,"JESSinglePionECALDown":ttHbbJESSinglePionECALDown_categories,"JESSinglePionHCALUp":ttHbbJESSinglePionHCALUp_categories,"JESSinglePionHCALDown":ttHbbJESSinglePionHCALDown_categories,"JESFlavorQCDUp":ttHbbJESFlavorQCDUp_categories,"JESFlavorQCDDown":ttHbbJESFlavorQCDDown_categories,"JESTimePtEtaUp":ttHbbJESTimePtEtaUp_categories,"JESTimePtEtaDown":ttHbbJESTimePtEtaDown_categories,"JESRelativeJEREC1Up":ttHbbJESRelativeJEREC1Up_categories,"JESRelativeJEREC1Down":ttHbbJESRelativeJEREC1Down_categories,"JESRelativePtBBUp":ttHbbJESRelativePtBBUp_categories,"JESRelativePtBBDown":ttHbbJESRelativePtBBDown_categories,"JESRelativePtEC1Up":ttHbbJESRelativePtEC1Up_categories,"JESRelativePtEC1Down":ttHbbJESRelativePtEC1Down_categories,"JESRelativeBalUp":ttHbbJESRelativeBalUp_categories,"JESRelativeBalDown":ttHbbJESRelativeBalDown_categories,"JESRelativeFSRUp":ttHbbJESRelativeFSRUp_categories,"JESRelativeFSRDown":ttHbbJESRelativeFSRDown_categories,"JESRelativeStatFSRUp":ttHbbJESRelativeStatFSRUp_categories,"JESRelativeStatFSRDown":ttHbbJESRelativeStatFSRDown_categories,"JESRelativeStatECUp":ttHbbJESRelativeStatECUp_categories,"JESRelativeStatECDown":ttHbbJESRelativeStatECDown_categories,"JESPileUpDataMCUp":ttHbbJESPileUpDataMCUp_categories,"JESPileUpDataMCDown":ttHbbJESPileUpDataMCDown_categories,"JESPileUpPtRefUp":ttHbbJESPileUpPtRefUp_categories,"JESPileUpPtRefDown":ttHbbJESPileUpPtRefDown_categories,"JESPileUpPtBBUp":ttHbbJESPileUpPtBBUp_categories,"JESPileUpPtBBDown":ttHbbJESPileUpPtBBDown_categories,"JESPileUpPtEC1Up":ttHbbJESPileUpPtEC1Up_categories,"JESPileUpPtEC1Down":ttHbbJESPileUpPtEC1Down_categories}
@@ -82,10 +84,14 @@ ttHbb_categories.addCategory("ttHbb", selection = None)
 for systs in systematics:
   dict_syst_ttHbb[systs].addCategory("ttHbb"+"_"+systs, selection = None)
 
-
+#some definitions
+outdirttHbb="/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_May11_ttHbb_syst/"
+outdir=outdirttHbb
+if not os.path.exists(outdir):
+    os.makedirs(outdir)
 # initialize dataset class
 dataset = root2pandas.Dataset(
-    outputdir   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_syst-allVar-ttHbb-systntuples/",
+    outputdir   = outdir,
     naming      = "dnn",
     addCNNmap   = False,
     addMEM      = False)
@@ -93,19 +99,13 @@ dataset = root2pandas.Dataset(
 # add base event selection
 dataset.addBaseSelection(base_selection)
 
+# add samples to dataset
 for ii, systs in enumerate(systematics2):
   dataset.addSample(
       sampleName  = "ttHbb"+str(systs),
-      ntuples     = "/eos/user/l/lprado/ttHTobb/*"+str(systs)+"*.root",
+      ntuples     = "/eos/user/l/lprado/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/*"+str(systs)+"*.root",
       categories  = dict_syst_ttHbb[str(systematics[ii])],
       selections  = None)
-
-#nominal one
-dataset.addSample(
-    sampleName  = "ttHbb",
-    ntuples     = "/eos/user/l/lprado/ttHTobb/*nominal*.root",
-    categories  = ttHbb_categories,
-    selections  = None)
 
 # initialize variable list 
 dataset.addVariables(variable_set.all_variables)

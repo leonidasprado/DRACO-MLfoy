@@ -23,29 +23,22 @@ or \
 
 
 # define other additional selections
-ttbar_selection = "(\
-abs(Weight_scale_variation_muR_0p5_muF_0p5) <= 100 and \
-abs(Weight_scale_variation_muR_0p5_muF_1p0) <= 100 and \
-abs(Weight_scale_variation_muR_0p5_muF_2p0) <= 100 and \
-abs(Weight_scale_variation_muR_1p0_muF_0p5) <= 100 and \
-abs(Weight_scale_variation_muR_1p0_muF_1p0) <= 100 and \
-abs(Weight_scale_variation_muR_1p0_muF_2p0) <= 100 and \
-abs(Weight_scale_variation_muR_2p0_muF_0p5) <= 100 and \
-abs(Weight_scale_variation_muR_2p0_muF_1p0) <= 100 and \
-abs(Weight_scale_variation_muR_2p0_muF_2p0) <= 100 \
-)"
+
+ttHH_selection = "(Evt_Odd == 0)"
 
 # define output classes
-ttbar_categories = root2pandas.EventCategories()
-ttbar_categories.addCategory("ttbb", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0)")
-ttbar_categories.addCategory("tt2b", selection = "(GenEvt_I_TTPlusBB == 2 and GenEvt_I_TTPlusCC == 0)")
-ttbar_categories.addCategory("ttb",  selection = "(GenEvt_I_TTPlusBB == 1 and GenEvt_I_TTPlusCC == 0)")
-ttbar_categories.addCategory("ttlf", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 0)")
-ttbar_categories.addCategory("ttcc", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 1)")
+ttHH_categories = root2pandas.EventCategories()
+ttHH_categories.addCategory("ttHH4b", selection = None)
 
-#some definitions
-outdirttbar="/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_May11_ttbar/"
-outdir=outdirttbar
+ttH_categories = root2pandas.EventCategories()
+ttH_categories.addCategory("ttHbb", selection = None)
+
+SingleTop_categories = root2pandas.EventCategories()
+SingleTop_categories.addCategory("SingleTop", selection = None)
+
+# some definitions
+outdirttHH="/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_May11_ttH_ttHH/"
+outdir=outdirttHH
 if not os.path.exists(outdir):
     os.makedirs(outdir)
 # initialize dataset class
@@ -55,29 +48,50 @@ dataset = root2pandas.Dataset(
     addCNNmap   = False,
     addMEM      = False)
 
-# add base event selection
-dataset.addBaseSelection(base_selection)
-
 
 # add samples to dataset
 dataset.addSample(
-    sampleName  = "TTToSL",
-    ntuples     = "/eos/user/l/lprado/TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8/*nominal*.root",
-    categories  = ttbar_categories,
+    sampleName  = "ttHH4b",
+    ntuples     = "/eos/user/l/lprado/TTHHTo4b_5f_LO_TuneCP5_13TeV_madgraph_pythia8/*nominal*.root",
+    categories  = ttHH_categories,
+    selections  = ttHH_selection)
+
+
+dataset.addSample(
+    sampleName  = "ttHbb",
+    ntuples     = "/eos/user/l/lprado/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/*nominal*.root",
+    categories  = ttH_categories,
     selections  = None)
 
 dataset.addSample(
-    sampleName  = "TTToHad",
-    ntuples     = "/eos/user/l/lprado/TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8/*nominal*.root",
-    categories  = ttbar_categories,
+    sampleName  = "STsch",
+    ntuples     = "/eos/user/l/lprado/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-amcatnlo-pythia8/*nominal*.root",
+    categories  = SingleTop_categories,
     selections  = None)
 
 dataset.addSample(
-    sampleName  = "TTToLep",
-    ntuples     = "/eos/user/l/lprado/TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8/*nominal*.root",
-    categories  = ttbar_categories,
+    sampleName  = "STtchAntitop",
+    ntuples     = "/eos/user/l/lprado/ST_t-channel_antitop_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/*nominal*.root",
+    categories  = SingleTop_categories,
     selections  = None)
 
+dataset.addSample(
+    sampleName  = "STtchTop",
+    ntuples     = "/eos/user/l/lprado/ST_t-channel_top_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/*nominal*.root",
+    categories  = SingleTop_categories,
+    selections  = None)
+
+dataset.addSample(
+    sampleName  = "STtwchAntitop",
+    ntuples     = "/eos/user/l/lprado/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/*nominal*.root",
+    categories  = SingleTop_categories,
+    selections  = None)
+
+dataset.addSample(
+    sampleName  = "STtwchTop",
+    ntuples     = "/eos/user/l/lprado/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/*nominal*.root",
+    categories  = SingleTop_categories,
+    selections  = None)
 
 # initialize variable list 
 dataset.addVariables(variable_set.all_variables)
@@ -130,18 +144,6 @@ additional_variables = [
     "Weight_MuonSFTrigger",
     "Weight_MuonSFTrigger_Down",
     "Weight_MuonSFTrigger_Up",
-#
-    "GenWeight_8",
-    "GenWeight_6",
-    "GenWeight_9",
-    "GenWeight_7",
-    "Weight_LHA_306000_nominal",
-    "Weight_LHA_306000_up",
-    "Weight_LHA_306000_down",
-    "Weight_scale_variation_muR_2p0_muF_1p0",
-    "Weight_scale_variation_muR_0p5_muF_1p0",
-    "Weight_scale_variation_muR_1p0_muF_2p0",
-    "Weight_scale_variation_muR_1p0_muF_0p5",
 ]
 
 # add these variables to the variable list

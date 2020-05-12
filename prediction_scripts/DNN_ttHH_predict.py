@@ -1,3 +1,4 @@
+#This was called "Less Aggressive 2" and is the final version
 # global imports
 import os
 import sys
@@ -8,7 +9,7 @@ basedir = os.path.dirname(filedir)
 sys.path.append(basedir)
 
 # import class for DNN training
-import DRACO_Frameworks.DNN.DNN3 as DNN
+import DRACO_Frameworks.DNN.DNN3_less_aggressive2 as DNN
 # specify which variable set to use
 import variable_sets.ttHH_topVariables as variable_set
 
@@ -25,16 +26,14 @@ variables       = variable_set.variables[JTcategory]
 event_classes = ["ttHH4b", "ttbb", "tt2b","ttb","ttcc","ttlf"]
 
 #below are the datasets to be loaded. Chose it as a terminal argument
-event_nominal=["ttHH4b", "ttbb", "tt2b","ttb","ttcc","ttlf"]
+event_nominal=["ttHH4b", "ttbb", "tt2b","ttb","ttcc","ttlf","ttHbb","SingleTop"]
 #thi nominal_extra is mainly used for testing
 event_nominal_extra=["ttbb"]
 #event_nominal_extra=["ttHbb"]
 event_data=["data_obs"]
 
 #event_syst will have as input an Up or Down variation, here treated the same
-#TO DO:
-#add ttH when it is time to implement it
-event_syst=["ttHH4b_"+str(sys.argv[1]),"ttbb_"+str(sys.argv[1]),"tt2b_"+str(sys.argv[1]),"ttb_"+str(sys.argv[1]),"ttcc_"+str(sys.argv[1]),"ttlf_"+str(sys.argv[1])]
+event_syst=["ttHH4b_"+str(sys.argv[1]),"ttbb_"+str(sys.argv[1]),"tt2b_"+str(sys.argv[1]),"ttb_"+str(sys.argv[1]),"ttcc_"+str(sys.argv[1]),"ttlf_"+str(sys.argv[1]),"ttHbb_"+str(sys.argv[1]),"SingleTop_"+str(sys.argv[1])]
 
 #dictionary of classes
 dict_event={"nominal":event_nominal, "nominal_extra": event_nominal_extra, "data":event_data}
@@ -54,14 +53,15 @@ else:
   root_output = "ttHH_predict_"+str(sys.argv[1])+"_"+JTcategory+".root"
 
 # absolute path to folder with input dataframes
-inPath   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_syst-allVar"
+inPath   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_May11"
+#inPath   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_syst-allVar-ttHbb-systntuples"
 #inPath   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_syst-topVar"
 #inPath   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_ttH_TT_2017_v1-topVar"
 #inPath   = "/afs/cern.ch/user/l/lprado/work/DNNInputFiles/DNN_ttHH_2017_v2-topVar"
 
 
 # path to output directory (adjust NAMING)
-savepath = basedir+"/workdir/"+"ttHH_2017_predict_"+str(JTcategory)
+savepath = basedir+"/workdir/"+"ttHH_May11_predict_"+str(JTcategory)
 
 # initializing DNN training class
 #not all is needed for the prediction

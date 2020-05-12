@@ -163,26 +163,26 @@ variables["le6j_ge3t"] = [
     ]
 
 variables["ge4j_ge3t"] = [
+    'BDT_common5_input_h1',
+    'Evt_Deta_TaggedJetsAverage',
     'Evt_Dr_MinDeltaRLeptonTaggedJet',
-    'Evt_M_TaggedJetsClosestTo125',
-    'Evt_M_JetsAverage',
-    'Evt_CSV_Average_Tagged',
-    'Evt_blr_ETH',
-    'Evt_M_MinDeltaRTaggedJets',
+    'Evt_JetPtOverJetE',
     'Evt_CSV_Dev',
-    'CSV[3]',
-    'Jet_Pt[0]',
-    'Evt_M_MinDeltaRLeptonTaggedJet',
-    'Evt_HT_tagged',
+    'Evt_M_MinDeltaRTaggedJets',
     'N_BTagsL',
-    'Evt_Deta_JetsAverage',
+    'Evt_blr_ETH',
+    'Jet_Pt[0]',
     'Evt_CSV_Average',
     'CSV[2]',
     'Evt_M2_TaggedJetsAverage',
+    'Evt_CSV_Average_Tagged',
     'N_BTagsM',
-    'Evt_M_TaggedJetsAverage',
+    'Evt_Deta_JetsAverage',
+    'CSV[3]',
+    'Evt_HT_tagged',
     'Evt_blr_ETH_transformed',
     'Evt_HT',
+    'Evt_M_TaggedJetsAverage',
     ]
 
 all_variables = list(set( [v for key in variables for v in variables[key] ] ))

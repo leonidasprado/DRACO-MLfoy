@@ -143,12 +143,12 @@ class plotDiscriminatorsPretty:
         self.predicted_classes = np.argmax( self.prediction_vector, axis = 1)
 
         self.event_classes     = event_classes
-	self.event_classes_extra = event_classes_extra
+        self.event_classes_extra = event_classes_extra
         self.systematics       = systematics
         self.nbins             = nbins
         self.bin_range         = bin_range
         self.signal_class      = signal_class
-	self.data_class        = data_class
+        self.data_class        = data_class
         self.event_category    = event_category
         self.plotdir           = plotdir
         self.root_output       = root_output
@@ -280,8 +280,7 @@ class plotDiscriminatorsPretty:
             # add background entries
             for i, h in enumerate(bkgHists):
                 legend.AddEntry(h, bkgLabels[i], "F")
-            #poor hard coding below:
-            legend.AddEntry(bkgHists[5], sig_label+" x {:4.0f}".format(scaleFactor/200), "L")
+            
             # draw legend
             legend.Draw("same")
 

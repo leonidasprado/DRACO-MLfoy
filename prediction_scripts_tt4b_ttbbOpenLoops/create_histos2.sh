@@ -1,6 +1,0 @@
-python DNN_ttHH_predict_bkg_1bin.py nominal
-python DNN_ttHH_predict_bkg_1bin.py JESUp
-python DNN_ttHH_predict_bkg_1bin.py JESDown
-python DNN_ttHH_predict_bkg_1bin.py JERUp
-python DNN_ttHH_predict_bkg_1bin.py JERDown
-python DNN_ttHH_predict_bkg_1bin.py data

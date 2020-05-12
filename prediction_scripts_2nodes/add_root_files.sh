@@ -1,2 +1,0 @@
-hadd ttHH_predict_ge4j_ge3t.root ttHH_predict_JERDown_ge4j_ge3t.root ttHH_predict_JERUp_ge4j_ge3t.root ttHH_predict_JESDown_ge4j_ge3t.root ttHH_predict_JESUp_ge4j_ge3t.root ttHH_predict_nominal_ge4j_ge3t.root ttHH_predict_asimov_ge4j_ge3t.root
-

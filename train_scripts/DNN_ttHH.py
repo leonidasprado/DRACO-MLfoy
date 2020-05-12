@@ -10,7 +10,7 @@ sys.path.append(basedir)
 # import class for DNN training
 import DRACO_Frameworks.DNN.DNN as DNN
 # specify which variable set to use
-import variable_sets.ttHH_topVariables_4n as variable_set
+import variable_sets.ttHH_allVariables as variable_set
 
 # when executing the script give the jet-tag category as a first argument
 # (ge)[nJets]j_(ge)[nTags]t
@@ -21,16 +21,16 @@ variables       = variable_set.variables[JTcategory]
 
 # specify all the event classes, e.g. ["ttH", "ttbb", "tt2b", ...]
 #event_classes = ["ttHH4b", "ttbar"]
-event_classes = ["ttHH4b", "tthf","ttcc","ttlf"]
-#event_classes = ["ttHH4b", "ttbb", "tt2b","ttb","ttcc","ttlf"]
+#event_classes = ["ttHH4b", "tthf","ttcc","ttlf"]
+event_classes = ["ttHH4b", "ttbb", "tt2b","ttb","ttcc","ttlf"]
 
 # absolute path to folder with input dataframes
-inPath   = "/afs/cern.ch/user/l/lprado/work/DNNInputFiles/DNN_ttHH_4nodes_allVar"
+#inPath   = "/afs/cern.ch/user/l/lprado/work/DNNInputFiles/DNN_ttHH_4nodes_allVar"
 #inPath   = "/afs/cern.ch/user/l/lprado/work/DNNInputFiles/DNN_ttHH_TTalternative-allVar"
-#inPath   = "/afs/cern.ch/user/l/lprado/work/DNNInputFiles/DNN_ttHH_2017_v2-allVar"
+inPath   = "/afs/cern.ch/user/l/lprado/work/DNNInputFiles/ttHH_May11"
 
 # path to output directory (adjust NAMING)
-savepath = basedir+"/workdir/"+"ttHH_4nodes_topVar_"+str(JTcategory)
+savepath = basedir+"/workdir/"+"ttHH_May11_allVar_"+str(JTcategory)
 
 # initializing DNN training class
 dnn = DNN.DNN(
