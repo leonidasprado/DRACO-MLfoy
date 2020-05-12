@@ -1,8 +1,8 @@
-#python DNN_ttHH_predict.py nominal
-#python DNN_ttHH_predict.py JESUp
-#python DNN_ttHH_predict.py JESDown
-#python DNN_ttHH_predict.py JERUp
-#python DNN_ttHH_predict.py JERDown
+python DNN_ttHH_predict.py nominal
+python DNN_ttHH_predict.py JESUp
+python DNN_ttHH_predict.py JESDown
+python DNN_ttHH_predict.py JERUp
+python DNN_ttHH_predict.py JERDown
 #python DNN_ttHH_predict.py data
 
 #python DNN_ttHH_predict.py JESAbsoluteStatUp
@@ -48,22 +48,22 @@
 #systematics coming from n-tuples: see above. They don't need the second input argument.
 #if second input argument is empty, it uses only the variation of the ntuple.
 #if not nominal, do things!
-#python DNN_ttHH_predict.py nominal Weight_CSVCErr1down
-#python DNN_ttHH_predict.py nominal Weight_CSVCErr1up
-#python DNN_ttHH_predict.py nominal Weight_CSVCErr2down
-#python DNN_ttHH_predict.py nominal Weight_CSVCErr2up
-#python DNN_ttHH_predict.py nominal Weight_CSVHFdown
-#python DNN_ttHH_predict.py nominal Weight_CSVHFup
-#python DNN_ttHH_predict.py nominal Weight_CSVHFStats1down
-#python DNN_ttHH_predict.py nominal Weight_CSVHFStats1up
-#python DNN_ttHH_predict.py nominal Weight_CSVHFStats2down
-#python DNN_ttHH_predict.py nominal Weight_CSVHFStats2up
-#python DNN_ttHH_predict.py nominal Weight_CSVLFdown
-#python DNN_ttHH_predict.py nominal Weight_CSVLFup
-#python DNN_ttHH_predict.py nominal Weight_CSVLFStats1down
-#python DNN_ttHH_predict.py nominal Weight_CSVLFStats1up
-#python DNN_ttHH_predict.py nominal Weight_CSVLFStats2down
-#python DNN_ttHH_predict.py nominal Weight_CSVLFStats2up
+python DNN_ttHH_predict.py nominal Weight_CSVCErr1down
+python DNN_ttHH_predict.py nominal Weight_CSVCErr1up
+python DNN_ttHH_predict.py nominal Weight_CSVCErr2down
+python DNN_ttHH_predict.py nominal Weight_CSVCErr2up
+python DNN_ttHH_predict.py nominal Weight_CSVHFdown
+python DNN_ttHH_predict.py nominal Weight_CSVHFup
+python DNN_ttHH_predict.py nominal Weight_CSVHFStats1down
+python DNN_ttHH_predict.py nominal Weight_CSVHFStats1up
+python DNN_ttHH_predict.py nominal Weight_CSVHFStats2down
+python DNN_ttHH_predict.py nominal Weight_CSVHFStats2up
+python DNN_ttHH_predict.py nominal Weight_CSVLFdown
+python DNN_ttHH_predict.py nominal Weight_CSVLFup
+python DNN_ttHH_predict.py nominal Weight_CSVLFStats1down
+python DNN_ttHH_predict.py nominal Weight_CSVLFStats1up
+python DNN_ttHH_predict.py nominal Weight_CSVLFStats2down
+python DNN_ttHH_predict.py nominal Weight_CSVLFStats2up
 
 python DNN_ttHH_predict.py nominal Weight_pu69p2Down
 python DNN_ttHH_predict.py nominal Weight_pu69p2Up

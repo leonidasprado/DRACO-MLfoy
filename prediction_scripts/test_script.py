@@ -12,7 +12,7 @@ subD4="ttb_node"
 subD5="ttcc_node"
 subD6="ttlf_node"
 subD=[subD1,subD2,subD3,subD4,subD5,subD5,subD6]
-processes=["ttHH4b","ttbb","tt2b", "ttb", "ttcc", "ttlf","ttHbb", "data_obs"]
+processes=["ttHH4b","ttbb","tt2b", "ttb", "ttcc", "ttlf","ttHbb","SingleTop","data_obs"]
 for i, item in enumerate(subD):
     print("-"*50)
     print("directory number ", i)

@@ -18,7 +18,7 @@ RDirectory = [subD1,subD2,subD3,subD4,subD5,subD6]
 #The root file being open
 f=ROOT.TFile(filename)
 subD=["ttHH4b_node","ttbb_node","tt2b_node","ttb_node","ttcc_node","ttlf_node"]
-processes=["ttHH4b","ttbb","tt2b", "ttb", "ttcc", "ttlf","ttHbb"]#, "data_obs"]
+processes=["ttHH4b","ttbb","tt2b", "ttb", "ttcc", "ttlf","ttHbb", "SingleTop"]#, "data_obs"]
 number_data=0
 for i, item in enumerate(subD):
     print("-"*50)

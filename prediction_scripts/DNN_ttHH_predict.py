@@ -54,11 +54,6 @@ else:
 
 # absolute path to folder with input dataframes
 inPath   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_May11"
-#inPath   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_syst-allVar-ttHbb-systntuples"
-#inPath   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_syst-topVar"
-#inPath   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_ttH_TT_2017_v1-topVar"
-#inPath   = "/afs/cern.ch/user/l/lprado/work/DNNInputFiles/DNN_ttHH_2017_v2-topVar"
-
 
 # path to output directory (adjust NAMING)
 savepath = basedir+"/workdir/"+"ttHH_May11_predict_"+str(JTcategory)
