@@ -1,6 +1,7 @@
 import os
 import sys
 import pandas
+import ROOT
 # local imports
 filedir = os.path.dirname(os.path.realpath(__file__))
 basedir = os.path.dirname(os.path.dirname(filedir))
@@ -77,8 +78,9 @@ dict_variable={
     }
 
 class Sample:
-    def __init__(self, sampleName, sampleFile, signalSample = False, dataSample = False, ttHSample = False):
+    def __init__(self, sampleName, sampleNameColor, sampleFile, signalSample = False, dataSample = False, ttHSample = False):
         self.sampleName = sampleName
+        self.sampleColor= sampleNameColor
         self.sampleFile = sampleFile
         self.isSignal   = signalSample
         self.isData     = dataSample
@@ -104,7 +106,10 @@ class Sample:
 	    self.cut_data[cut] = self.data.query(category_cut)[list(set(variables+["Weight_XS", "Weight_GEN_nom", "Weight_CSV","Weight_pu69p2","Weight_ElectronSFGFS","Weight_ElectronSFID","Weight_ElectronSFTrigger","Weight_MuonSFID","Weight_MuonSFIso","Weight_MuonSFTrigger","Weight_LHA_306000_nominal"]))]
 
         # add weight entry for scaling
-        if self.isSignal or self.isttH:
+        if self.isSignal:
+            self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS * x.Weight_GEN_nom * x.Weight_CSV * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi_scale*2)
+            print("multiplies by 2")
+        elif self.isttH:
             self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS * x.Weight_GEN_nom * x.Weight_CSV * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi_scale)
         elif self.isData:
             self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS*x.Weight_CSV)
@@ -114,10 +119,12 @@ class Sample:
         
 
 class variablePlotter:
-    def __init__(self, output_dir, variable_set, add_vars, plotOptions = {}):
+    def __init__(self, onlyrootfiles, root_output, output_dir, variable_set, add_vars, plotOptions = {}):
         self.output_dir     = output_dir
         self.variable_set   = variable_set
         self.add_vars       = list(add_vars)        
+        self.root_output    = root_output
+        self.onlyrootfiles  = onlyrootfiles
 
         self.samples        = {}
         self.categories     = []
@@ -136,6 +143,7 @@ class variablePlotter:
     def addSample(self, **kwargs):
         print("adding sample: "+str(kwargs["sampleName"]))
         self.samples[kwargs["sampleName"]] = Sample(**kwargs)
+        print("sample FILE is:   ", str(kwargs["sampleFile"]))
 
     def addCategory(self, category):
         print("adding category: {}".format(category))
@@ -158,22 +166,32 @@ class variablePlotter:
             for key in self.samples:
                 self.samples[key].cutData(cat, variables, self.options["lumiScale"])
 
+            #setup a root file
+            f = ROOT.TFile(self.root_output,"RECREATE")
+            RDirectory=[]
+
             # loop over all variables and perform plot
-            for variable in variables:
+            for i,variable in enumerate(variables):
                 print("plotting variable: {}".format(variable))
 
                 # generate plot output name
                 plot_name = cat_dir + "/{}.pdf".format(variable)
                 plot_name = plot_name.replace("[","_").replace("]","")
+               
+                #adding folders in the root file 
+                RDirectory.append(f.mkdir(str(variable)))
                     
                 # generate plot
                 self.histVariable(
-                    variable    = variable,
-                    plot_name   = plot_name,
-                    cat         = cat)
+                    f             = f,
+                    RDirectory    = RDirectory,
+                    i             = i,
+                    variable      = variable,
+                    plot_name     = plot_name,
+                    cat           = cat)
 
 
-    def histVariable(self, variable, plot_name, cat):
+    def histVariable(self, f, RDirectory, i, variable, plot_name, cat):
         # get number of bins and binrange from config filea
         bins = binning.getNbins(variable)
         bin_range = binning.getBinrange(variable)
@@ -210,13 +228,17 @@ class variablePlotter:
                 weights     = weights,
                 nbins       = bins,
                 bin_range   = bin_range,
-                color       = setup.GetPlotColor(sample.sampleName),
-                xtitle      = cat+"_"+sample.sampleName+"_"+variable,
+                color       = setup.GetPlotColor(sample.sampleColor),
+                xtitle      = sample.sampleName,
                 ytitle      = setup.GetyTitle(),
                 filled      = True)
 
+            RDirectory[i].cd()
+            hist.Write()
+            f.cd()
             bkgHists.append(hist)
             bkgLabels.append(sample.sampleName)
+            hist.SetDirectory(0)
 
         sigHists = []
         sigLabels = []
@@ -237,20 +259,22 @@ class variablePlotter:
                 scaleFactor = float(self.options["scaleSignal"])
 
             print("weight integral is: ", weightIntegral)
-
+            print("ttHH integral is: ", sum(weights))
             # setup histogram
             hist = setup.setupHistogram(
                 values      = sample.cut_data[cat][variable].values,
                 weights     = weights,
                 nbins       = bins,
                 bin_range   = bin_range,
-                color       = setup.GetPlotColor(sample.sampleName),
-                xtitle      = cat+"_"+sample.sampleName+"_"+variable,
+                color       = setup.GetPlotColor(sample.sampleColor),
+                xtitle      = sample.sampleName,
                 ytitle      = setup.GetyTitle(),
                 filled      = False)
 
+            RDirectory[i].cd()
+            hist.Write()
+            f.cd()
             hist.Scale(scaleFactor)
-
             sigHists.append(hist)
             sigLabels.append(sample.sampleName)
             sigScales.append(scaleFactor)
@@ -272,40 +296,44 @@ class variablePlotter:
                 weights     = weights,
                 nbins       = bins,
                 bin_range   = bin_range,
-                color       = setup.GetPlotColor(sample.sampleName),
-                xtitle      = cat+"_"+sample.sampleName+"_"+variable,
+                color       = ROOT.kBlue,
+                xtitle      = sample.sampleName,
                 ytitle      = setup.GetyTitle(),
                 filled      = False)
 
+            RDirectory[i].cd()
+            hist.Write()
+            f.cd()
             datHists.append(hist)
             datLabels.append(sample.sampleName)
 
-        # init canvas
-        canvas = setup.drawHistsOnCanvas(
-            sigHists, bkgHists, datHists, self.options,   
-            canvasName = dict_variable[variable])
-        print("variable IS LOOK======================================= ",dict_variable[variable])
-        # setup legend
-        legend = setup.getLegend()
-        # add signal entries
-        for iSig in range(len(sigHists)):
-            legend.AddEntry(sigHists[iSig], sigLabels[iSig]+" x {:4.0f}".format(sigScales[iSig]), "L")
-        # add background entries
-        for iBkg in range(len(bkgHists)):
-            legend.AddEntry(bkgHists[iBkg], bkgLabels[iBkg], "F")
-        # add DATA entries
-        for iDat in range(len(datHists)):
-            legend.AddEntry(datHists[iDat], datLabels[iDat], "P")
+        if not self.onlyrootfiles:
+            # init canvas
+            canvas = setup.drawHistsOnCanvas(
+                sigHists, bkgHists, datHists, self.options,   
+                canvasName = dict_variable[variable])
+            print("variable IS LOOK======================================= ",dict_variable[variable])
+            # setup legend
+            legend = setup.getLegend()
+            # add signal entries
+            for iSig in range(len(sigHists)):
+                legend.AddEntry(sigHists[iSig], sigLabels[iSig]+" x {:4.0f}".format(sigScales[iSig]), "L")
+            # add background entries
+            for iBkg in range(len(bkgHists)):
+                legend.AddEntry(bkgHists[iBkg], bkgLabels[iBkg], "F")
+            # add DATA entries
+            for iDat in range(len(datHists)):
+                legend.AddEntry(datHists[iDat], datLabels[iDat], "P")
 
-        # draw legend
-        legend.Draw("same")
+            # draw legend
+            legend.Draw("same")
 
-        # add lumi and category to plot
-        setup.printLumi(canvas, lumi = self.options["lumiScale"], ratio = self.options["ratio"])
-        setup.printCategoryLabel(canvas, JTcut.getJTlabel(cat), ratio = self.options["ratio"])
+            # add lumi and category to plot
+            setup.printLumi(canvas, lumi = self.options["lumiScale"], ratio = self.options["ratio"])
+            setup.printCategoryLabel(canvas, JTcut.getJTlabel(cat), ratio = self.options["ratio"])
 
-        # save canvas
-        setup.saveCanvas(canvas, plot_name)
+            # save canvas
+            setup.saveCanvas(canvas, plot_name)
 
 
 
