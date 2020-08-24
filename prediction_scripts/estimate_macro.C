@@ -1,5 +1,5 @@
 {
-binnum=39;
+binnum=18;
 h1=ttHH4b->GetBinContent(binnum);
 h2=ttbb->GetBinContent(binnum);
 h3=tt2b->GetBinContent(binnum);

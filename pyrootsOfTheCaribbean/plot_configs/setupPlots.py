@@ -37,7 +37,7 @@ def setupHistogram(
         nbins, bin_range, color,
         xtitle, ytitle, filled = True):
     # define histogram. the * before bin_range is important depening on what is on DNN3.py (default is with the *)
-    histogram = ROOT.TH1D(xtitle.replace(" ","_"), "", nbins,*bin_range)
+    histogram = ROOT.TH1D(xtitle.replace(" ","_"), "", nbins, bin_range)
     histogram.Sumw2(True)    
 
     for v, w in zip(values, weights):

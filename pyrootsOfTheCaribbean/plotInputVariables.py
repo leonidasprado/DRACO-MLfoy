@@ -38,15 +38,50 @@ plotOptions = {
 # additional variables to plot
 additional_variables = [
     'N_Jets',
-    'N_BTagsM',
-    'N_BTagsL',
-    'Weight_XS',
-    'Weight_CSV',
+#    'N_BTagsM',
+#    'N_BTagsL',
+#    'Weight_XS',
+#    'Weight_CSV',
  ]
+onlyrootfiles=True
+syst=""
+systFile=""
+inputsyst="1"
+#Construct systematics or not
+if str(sys.argv[1]) in ("nominal"):
+  onlyrootfiles = False
+  if len(sys.argv)>2:
+      onlyrootfiles = True
+      inputsyst=str(sys.argv[2]) #inputsyst uses ntuple naming convention
+      syst = "_"+inputsyst
+else:
+  syst= "_"+str(sys.argv[1])
+  systFile=syst
 
+#root file naming uses ntuple naming
+if len(sys.argv)>2:
+  root_output = "ttHH_InputVar_"+str(sys.argv[2])+".root"
+else:
+  root_output = "ttHH_InputVar_"+str(sys.argv[1])+".root"
+
+rate=False
+sampleFlag=""
+rate_value=""
+#if "len(sys.argv)>3", it means it is a rate syst:
+# python  plotInputVariables.py nominal ratesystUp/Down sampleName NumericalValue
+if len(sys.argv)>3:
+    rate = True
+    sampleFlag = str(sys.argv[3])
+    rate_value = str(sys.argv[4])
 
 # initialize plotter
 plotter = variablePlotter(
+    rate            = rate,
+    sampleFlag      = sampleFlag,
+    rate_value      = rate_value,
+    inputsyst       = inputsyst,
+    onlyrootfiles   = onlyrootfiles,
+    root_output     = root_output,
     output_dir      = plot_dir,
     variable_set    = variable_set,
     add_vars        = additional_variables,
@@ -55,43 +90,62 @@ plotter = variablePlotter(
 
 # add samples
 plotter.addSample(
-    sampleName      = "ttHH",
-    sampleFile      = data_dir+"/ttHH4b_dnn.h5",
+    sampleName      = "ttHH4b"+syst,
+    sampleNameColor = "ttHH4b",
+    inputsyst       = inputsyst,
+    sampleFile      = data_dir+"/ttHH4b"+systFile+"_dnn.h5",
     signalSample    = True)
 plotter.addSample(
-    sampleName      = "ttbb",
-    sampleFile      = data_dir+"/ttbb_dnn.h5")
+    sampleName      = "ttbb"+syst,
+    sampleNameColor = "ttbb",
+    inputsyst       = inputsyst,
+    sampleFile      = data_dir+"/ttbb"+systFile+"_dnn.h5")
 
 plotter.addSample(
-    sampleName      = "tt2b",
-    sampleFile      = data_dir+"/tt2b_dnn.h5")
+    sampleName      = "tt2b"+syst,
+    sampleNameColor = "tt2b",
+    inputsyst       = inputsyst,
+    sampleFile      = data_dir+"/tt2b"+systFile+"_dnn.h5")
 
 plotter.addSample(
-    sampleName      = "ttb",
-    sampleFile      = data_dir+"/ttb_dnn.h5")
+    sampleName      = "ttb"+syst,
+    sampleNameColor = "ttb",
+    inputsyst       = inputsyst,
+    sampleFile      = data_dir+"/ttb"+systFile+"_dnn.h5")
 
 plotter.addSample(
-    sampleName      = "ttcc",
-    sampleFile      = data_dir+"/ttcc_dnn.h5")
+    sampleName      = "ttcc"+syst,
+    sampleNameColor = "ttcc",
+    inputsyst       = inputsyst,
+    sampleFile      = data_dir+"/ttcc"+systFile+"_dnn.h5")
 
 plotter.addSample(
-    sampleName      = "ttlf",
-    sampleFile      = data_dir+"/ttlf_dnn.h5")
+    sampleName      = "ttlf"+syst,
+    sampleNameColor = "ttlf",
+    inputsyst       = inputsyst,
+    sampleFile      = data_dir+"/ttlf"+systFile+"_dnn.h5")
 
 plotter.addSample(
-    sampleName      = "ttHbb",
-    sampleFile      = data_dir+"/ttHbb_dnn.h5",
+    sampleName      = "ttHbb"+syst,
+    sampleNameColor = "ttHbb",
+    inputsyst       = inputsyst,
+    sampleFile      = data_dir+"/ttHbb"+systFile+"_dnn.h5",
     ttHSample       = True)
 
 plotter.addSample(
-    sampleName      = "SingleTop",
-    sampleFile      = data_dir+"/SingleTop_dnn.h5",
+    sampleName      = "SingleTop"+syst,
+    sampleNameColor = "SingleTop",
+    inputsyst       = inputsyst,
+    sampleFile      = data_dir+"/SingleTop"+systFile+"_dnn.h5",
     ttHSample       = True)
 
-plotter.addSample(
-    sampleName      = "data",
-    sampleFile      = data_dir+"/data_obs_dnn.h5",
-    dataSample      = True)
+if not onlyrootfiles:
+      plotter.addSample(
+          sampleName      = "data_obs",
+          sampleNameColor = "data",
+          inputsyst       = inputsyst,
+          sampleFile      = data_dir+"/data_obs_dnn.h5",
+          dataSample      = True)
 
 
 # add JT categories

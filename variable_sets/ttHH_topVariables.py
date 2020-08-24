@@ -163,10 +163,10 @@ variables["le6j_ge3t"] = [
     ]
 
 variables["ge4j_ge3t"] = [
-    'BDT_common5_input_h1',
-    'Evt_Deta_TaggedJetsAverage',
+    'Jet_Pt[3]',
+    'Evt_M_JetsAverage',
     'Evt_Dr_MinDeltaRLeptonTaggedJet',
-    'Evt_JetPtOverJetE',
+    'Evt_CSV_Min_Tagged',
     'Evt_CSV_Dev',
     'Evt_M_MinDeltaRTaggedJets',
     'N_BTagsL',

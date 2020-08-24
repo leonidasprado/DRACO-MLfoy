@@ -46,11 +46,12 @@ class DataFrame(object):
             cls_df = cls_df.assign(train_weight = lambda x: class_weight_scale*x.total_weight/weight_sum)
             print("weight sum of train_weight: "+str( sum(cls_df["train_weight"].values) ))
 
+            if "ttHH4b" in cls: class_weight_scale *= 2.0
             # add lumi weight
             if "data" in cls:
               cls_df = cls_df.assign(lumi_weight = lambda x: x.Weight_XS * x.Weight_CSV)
             else:
-              cls_df = cls_df.assign(lumi_weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * lumi)
+              cls_df = cls_df.assign(lumi_weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * class_weight_scale * lumi)
 
             # add data to list of dataframes
             class_dataframes.append( cls_df )

@@ -3,7 +3,7 @@ python DNN_ttHH_predict.py JESUp
 python DNN_ttHH_predict.py JESDown
 python DNN_ttHH_predict.py JERUp
 python DNN_ttHH_predict.py JERDown
-#python DNN_ttHH_predict.py data
+python DNN_ttHH_predict.py data
 
 #python DNN_ttHH_predict.py JESAbsoluteStatUp
 #python DNN_ttHH_predict.py JESAbsoluteStatDown
@@ -64,7 +64,6 @@ python DNN_ttHH_predict.py nominal Weight_CSVLFStats1down
 python DNN_ttHH_predict.py nominal Weight_CSVLFStats1up
 python DNN_ttHH_predict.py nominal Weight_CSVLFStats2down
 python DNN_ttHH_predict.py nominal Weight_CSVLFStats2up
-
 python DNN_ttHH_predict.py nominal Weight_pu69p2Down
 python DNN_ttHH_predict.py nominal Weight_pu69p2Up
 python DNN_ttHH_predict.py nominal Weight_ElectronSFGFS_Down

@@ -76,16 +76,69 @@ dict_variable={
     "Weight_XS":"Weight_XS",
     "Weight_CSV":"Weight_CSV"
     }
+dict_syst={"Weight_CSVCErr1down":"CMS_btag_cferr1_2017Down","Weight_CSVCErr1up":"CMS_btag_cferr1_2017Up",\
+"Weight_CSVCErr2down":"CMS_btag_cferr2_2017Down","Weight_CSVCErr2up":"CMS_btag_cferr2_2017Up",\
+"Weight_CSVHFdown":"CMS_btag_hf_2017Down","Weight_CSVHFup":"CMS_btag_hf_2017Up",\
+"Weight_CSVHFStats1down":"CMS_btag_hfstats1_2017Down","Weight_CSVHFStats1up":"CMS_btag_hfstats1_2017Up",\
+"Weight_CSVHFStats2down":"CMS_btag_hfstats2_2017Down","Weight_CSVHFStats2up":"CMS_btag_hfstats2_2017Up",\
+"Weight_CSVLFdown":"CMS_btag_lf_2017Down","Weight_CSVLFup":"CMS_btag_lf_2017Up",\
+"Weight_CSVLFStats1down":"CMS_btag_lfstats1_2017Down","Weight_CSVLFStats1up":"CMS_btag_lfstats1_2017Up",\
+"Weight_CSVLFStats2down":"CMS_btag_lfstats2_2017Down","Weight_CSVLFStats2up":"CMS_btag_lfstats2_2017Up",\
+"Weight_pu69p2Down":"CMS_ttH_PUDown","Weight_pu69p2Up":"CMS_ttH_PUUp",\
+"Weight_ElectronSFGFS_Down":"CMS_SFGFS_e_2017Down","Weight_ElectronSFGFS_Up":"CMS_SFGFS_e_2017Up",\
+"Weight_ElectronSFID_Down":"CMS_SFID_e_2017Down","Weight_ElectronSFID_Up":"CMS_SFID_e_2017Up",\
+"Weight_ElectronSFTrigger_Down":"CMS_SFTrigger_e_2017Down","Weight_ElectronSFTrigger_Up":"CMS_SFTrigger_e_2017Up",\
+"Weight_MuonSFID_Down":"CMS_SFID_m_2017Down","Weight_MuonSFID_Up":"CMS_SFID_m_2017Up",\
+"Weight_MuonSFIso_Up":"CMS_SFIso_m_2017Up","Weight_MuonSFIso_Down":"CMS_SFIso_m_2017Down",\
+"Weight_MuonSFTrigger_Down":"CMS_SFTrigger_m_2017Down","Weight_MuonSFTrigger_Up":"CMS_SFTrigger_m_2017Up",\
+"GenWeight_8":"CMS_ttH_ISR_ttbar_2017Down","GenWeight_6":"CMS_ttH_ISR_ttbar_2017Up",\
+"GenWeight_9":"CMS_ttH_FSR_ttbar_2017Down","GenWeight_7":"CMS_ttH_FSR_ttbar_2017Up",\
+"Weight_LHA_306000_up":"CMS_ttH_PDF_2017Up","Weight_LHA_306000_down":"CMS_ttH_PDF_2017Down",\
+"Weight_scale_variation_muR_2p0_muF_1p0":"CMS_ttH_scaleMuRUp","Weight_scale_variation_muR_0p5_muF_1p0":"CMS_ttH_scaleMuRDown",\
+"Weight_scale_variation_muR_1p0_muF_2p0":"CMS_ttH_scaleMuFUp","Weight_scale_variation_muR_1p0_muF_0p5":"CMS_ttH_scaleMuFDown",\
+"lumi_13TeVUp":"lumi_13TeVUp",\
+"lumi_13TeVDown":"lumi_13TeVDown",\
+"QCDscale_ttHHUp":"QCDscale_ttHHUp",\
+"QCDscale_ttHHDown":"QCDscale_ttHHDown",\
+"QCDscale_ttbarUp":"QCDscale_ttbarUp",\
+"QCDscale_ttbarDown":"QCDscale_ttbarDown",\
+"QCDscale_singletUp":"QCDscale_singletUp",\
+"QCDscale_singletDown":"QCDscale_singletDown",\
+"pdf_ggUp":"pdf_ggUp",\
+"pdf_ggDown":"pdf_ggDown",\
+"pdf_qgUp":"pdf_qgUp",\
+"pdf_qgDown":"pdf_qgDown",\
+"pdf_Higgs_ttHHUp":"pdf_Higgs_ttHHUp",\
+"pdf_Higgs_ttHHDown":"pdf_Higgs_ttHHDown",\
+"QCDscale_ttHbbUp":"QCDscale_ttHbbUp",\
+"QCDscale_ttHbbDown":"QCDscale_ttHbbDown",\
+"pdf_Higgs_ttHbbUp":"pdf_Higgs_ttHbbUp",\
+"pdf_Higgs_ttHbbDown":"pdf_Higgs_ttHbbDown",\
+"CMS_ttHbb_bgnorm_ttbarPlus2B_2017Up":"CMS_ttHbb_bgnorm_ttbarPlus2B_2017Up",\
+"CMS_ttHbb_bgnorm_ttbarPlus2B_2017Down":"CMS_ttHbb_bgnorm_ttbarPlus2B_2017Down",\
+"CMS_ttHbb_bgnorm_ttbarPlusBBbar_2017Up":"CMS_ttHbb_bgnorm_ttbarPlusBBbar_2017Up",\
+"CMS_ttHbb_bgnorm_ttbarPlusBBbar_2017Down":"CMS_ttHbb_bgnorm_ttbarPlusBBbar_2017Down",\
+"CMS_ttHbb_bgnorm_ttbarPlusB_2017Up":"CMS_ttHbb_bgnorm_ttbarPlusB_2017Up",\
+"CMS_ttHbb_bgnorm_ttbarPlusB_2017Down":"CMS_ttHbb_bgnorm_ttbarPlusB_2017Down",\
+"CMS_ttHbb_bgnorm_ttbarPlusCCbar_2017Up":"CMS_ttHbb_bgnorm_ttbarPlusCCbar_2017Up",\
+"CMS_ttHbb_bgnorm_ttbarPlusCCbar_2017Down":"CMS_ttHbb_bgnorm_ttbarPlusCCbar_2017Down"\
+}
 
+onlyttbarlist=("GenWeight_8","GenWeight_6","GenWeight_9","GenWeight_7"\
+                          ,"Weight_LHA_306000_up","Weight_LHA_306000_down"\
+                          ,"Weight_scale_variation_muR_2p0_muF_1p0","Weight_scale_variation_muR_0p5_muF_1p0"\
+                          ,"Weight_scale_variation_muR_1p0_muF_2p0","Weight_scale_variation_muR_1p0_muF_0p5"\
+                          ) 
 class Sample:
-    def __init__(self, sampleName, sampleNameColor, sampleFile, signalSample = False, dataSample = False, ttHSample = False):
+    def __init__(self, sampleName, sampleNameColor, sampleFile, inputsyst, signalSample = False, dataSample = False, ttHSample = False):
         self.sampleName = sampleName
         self.sampleColor= sampleNameColor
         self.sampleFile = sampleFile
         self.isSignal   = signalSample
         self.isData     = dataSample
         self.isttH      = ttHSample
-        
+        self.inputsyst  = inputsyst
+        #print("lets see if it loaded correctly. The inputsyst is:    ", self.inputsyst)
         self.load()
         self.cut_data   = {}
 
@@ -93,39 +146,120 @@ class Sample:
         with pandas.HDFStore(self.sampleFile, mode = "r") as store:
             self.data = store.select("data")
 
-    def cutData(self, cut, variables, lumi_scale):
+    def cutData(self, cut, variables, rate, rate_value, lumi_scale):
         # cut events according to JT category
+        print("rate and rate_value is: ", rate , rate_value)
+        print("value of input syst is: ", self.inputsyst)
+        if rate: self.inputsyst = "1"
         category_cut = JTcut.getJTstring(cut)
-
+        weight_set_ttH = ["Weight_XS", "Weight_GEN_nom", "Weight_CSV","Weight_pu69p2","Weight_ElectronSFGFS","Weight_ElectronSFID","Weight_ElectronSFTrigger","Weight_MuonSFID","Weight_MuonSFIso","Weight_MuonSFTrigger"]
+        weight_set_ttbar = ["Weight_XS", "Weight_GEN_nom", "Weight_CSV","Weight_pu69p2","Weight_ElectronSFGFS","Weight_ElectronSFID","Weight_ElectronSFTrigger","Weight_MuonSFID","Weight_MuonSFIso","Weight_MuonSFTrigger","Weight_LHA_306000_nominal"]
         # only save variables that are needed
         if self.isSignal or self.isttH:
-            self.cut_data[cut] = self.data.query(category_cut)[list(set(variables+["Weight_XS", "Weight_GEN_nom", "Weight_CSV","Weight_pu69p2","Weight_ElectronSFGFS","Weight_ElectronSFID","Weight_ElectronSFTrigger","Weight_MuonSFID","Weight_MuonSFIso","Weight_MuonSFTrigger"]))]
+            if self.inputsyst not in "1" and self.inputsyst not in onlyttbarlist: weight_set_ttH += [self.inputsyst]
+            self.cut_data[cut] = self.data.query(category_cut)[list(set(variables+weight_set_ttH))]
         elif self.isData:
             self.cut_data[cut] = self.data.query(category_cut)[list(set(variables+["Weight_XS","Weight_CSV"]))]
-	else:
-	    self.cut_data[cut] = self.data.query(category_cut)[list(set(variables+["Weight_XS", "Weight_GEN_nom", "Weight_CSV","Weight_pu69p2","Weight_ElectronSFGFS","Weight_ElectronSFID","Weight_ElectronSFTrigger","Weight_MuonSFID","Weight_MuonSFIso","Weight_MuonSFTrigger","Weight_LHA_306000_nominal"]))]
-
+        else:
+            if self.inputsyst not in "1": weight_set_ttbar += [self.inputsyst]
+            self.cut_data[cut] = self.data.query(category_cut)[list(set(variables+weight_set_ttbar))]
+        print("the value of inputsyst here is: ", self.inputsyst)
+        if rate: self.inputsyst=rate_value
+        print("see if input syst changed: ", self.inputsyst)
+        extrafactor={True:2,False:1}
         # add weight entry for scaling
-        if self.isSignal:
-            self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS * x.Weight_GEN_nom * x.Weight_CSV * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi_scale*2)
-            print("multiplies by 2")
-        elif self.isttH:
-            self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS * x.Weight_GEN_nom * x.Weight_CSV * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi_scale)
+        if (self.isSignal or self.isttH) and self.inputsyst not in onlyttbarlist:
+	    if "Weight_pu69p2" in self.inputsyst:
+                self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom\
+                * x.eval(self.inputsyst) * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger\
+                * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi_scale * extrafactor[self.isSignal])
+            elif "Weight_ElectronSFGFS" in self.inputsyst:
+                self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom\
+	            * x.eval(self.inputsyst) * x.Weight_pu69p2 * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger\
+                * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi_scale * extrafactor[self.isSignal])
+            elif "Weight_ElectronSFID" in self.inputsyst:
+                self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom\
+                * x.eval(self.inputsyst) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFTrigger\
+                * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi_scale * extrafactor[self.isSignal])
+            elif "Weight_ElectronSFTrigger" in self.inputsyst:
+                self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom\
+                * x.eval(self.inputsyst) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID\
+                * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi_scale * extrafactor[self.isSignal])
+            elif "Weight_MuonSFID" in self.inputsyst:
+                self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom\
+                * x.eval(self.inputsyst) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID\
+                * x.Weight_ElectronSFTrigger * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * lumi_scale * extrafactor[self.isSignal])
+            elif "Weight_MuonSFIso" in self.inputsyst:
+                self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom\
+                * x.eval(self.inputsyst) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID\
+                * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFTrigger * lumi_scale * extrafactor[self.isSignal])
+            elif "Weight_MuonSFTrigger" in self.inputsyst:
+                self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom\
+                * x.eval(self.inputsyst) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID\
+                * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * lumi_scale * extrafactor[self.isSignal])
+            else:
+                self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom\
+                * x.eval(self.inputsyst) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID\
+                * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger\
+                * lumi_scale * extrafactor[self.isSignal])
+            #print("extra factor is", extrafactor[self.isSignal])
         elif self.isData:
             self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS*x.Weight_CSV)
-	else:
-	    self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * x.Weight_LHA_306000_nominal * lumi_scale)
+        elif not self.isSignal and not self.isttH:
+            if "Weight_pu69p2" in self.inputsyst:
+                self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom\
+                * x.eval(self.inputsyst) * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger\
+                * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * x.Weight_LHA_306000_nominal * lumi_scale)
+            elif "Weight_ElectronSFGFS" in self.inputsyst:
+                self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom\
+                * x.eval(self.inputsyst) * x.Weight_pu69p2 * x.Weight_ElectronSFID * x.Weight_ElectronSFTrigger\
+                * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * x.Weight_LHA_306000_nominal *  lumi_scale)
+            elif "Weight_ElectronSFID" in self.inputsyst:
+                self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom\
+                * x.eval(self.inputsyst) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFTrigger\
+                * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * x.Weight_LHA_306000_nominal * lumi_scale)
+            elif "Weight_ElectronSFTrigger" in self.inputsyst:
+                self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom\
+                * x.eval(self.inputsyst) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID\
+                * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger * x.Weight_LHA_306000_nominal * lumi_scale)
+            elif "Weight_MuonSFID" in self.inputsyst:
+                self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom\
+                * x.eval(self.inputsyst) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID\
+                * x.Weight_ElectronSFTrigger * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger\
+                * x.Weight_LHA_306000_nominal * lumi_scale)
+            elif "Weight_MuonSFIso" in self.inputsyst:
+                self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom\
+                * x.eval(self.inputsyst) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID\
+                * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFTrigger\
+                * x.Weight_LHA_306000_nominal * lumi_scale)
+            elif "Weight_MuonSFTrigger" in self.inputsyst:
+                self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom\
+                * x.eval(self.inputsyst) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID\
+                * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso\
+                * x.Weight_LHA_306000_nominal * lumi_scale)
+            elif "Weight_LHA_306000" in self.inputsyst:
+                self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom\
+                * x.eval(self.inputsyst) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID\
+                * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * lumi_scale)
+            else:
+                self.cut_data[cut] = self.cut_data[cut].assign(weight = lambda x: x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom\
+                * x.eval(self.inputsyst) * x.Weight_pu69p2 * x.Weight_ElectronSFGFS * x.Weight_ElectronSFID\
+                * x.Weight_ElectronSFTrigger * x.Weight_MuonSFID * x.Weight_MuonSFIso * x.Weight_MuonSFTrigger\
+                * x.Weight_LHA_306000_nominal * lumi_scale)
 
-        
 
 class variablePlotter:
-    def __init__(self, onlyrootfiles, root_output, output_dir, variable_set, add_vars, plotOptions = {}):
+    def __init__(self, rate, sampleFlag, rate_value, inputsyst, onlyrootfiles, root_output, output_dir, variable_set, add_vars, plotOptions = {}):
         self.output_dir     = output_dir
         self.variable_set   = variable_set
         self.add_vars       = list(add_vars)        
         self.root_output    = root_output
         self.onlyrootfiles  = onlyrootfiles
-
+        self.inputsyst      = inputsyst
+        self.rate           = rate
+        self.sampleFlag     = sampleFlag
+        self.rate_value     = rate_value
+        #print(self.inputsyst)
         self.samples        = {}
         self.categories     = []
 
@@ -139,11 +273,10 @@ class variablePlotter:
             defaultOptions[key] = plotOptions[key]
         self.options = defaultOptions
         
-
     def addSample(self, **kwargs):
         print("adding sample: "+str(kwargs["sampleName"]))
         self.samples[kwargs["sampleName"]] = Sample(**kwargs)
-        print("sample FILE is:   ", str(kwargs["sampleFile"]))
+        #print("sample FILE is:   ", str(kwargs["sampleFile"]))
 
     def addCategory(self, category):
         print("adding category: {}".format(category))
@@ -164,7 +297,8 @@ class variablePlotter:
 
             # filter events according to JT category
             for key in self.samples:
-                self.samples[key].cutData(cat, variables, self.options["lumiScale"])
+                self.samples[key].cutData(cat, variables, self.rate, self.rate_value, self.options["lumiScale"])
+                #print("sample is: ", key)
 
             #setup a root file
             f = ROOT.TFile(self.root_output,"RECREATE")
@@ -215,21 +349,29 @@ class variablePlotter:
         # loop over bachgrounds and fill hists
         for key in self.samples:
             sample = self.samples[key]
+            if self.rate:
+              if self.sampleFlag not in ("all","ttbar"):
+                if (self.sampleFlag+"_"+self.inputsyst) != key: continue
+              elif self.sampleFlag in "ttbar" and sample.isttH: continue
             if sample.isSignal: continue
             if sample.isData: continue
-
+            if sample.isttH and self.inputsyst in onlyttbarlist: continue
             # get weights
             weights = sample.cut_data[cat]["weight"].values
             weightIntegral += sum(weights)
-
+            #print("backgrounds are:   ",sample.sampleName)
             # setup histogram
+            if self.inputsyst == "1":
+                htitle = sample.sampleName
+            else:
+                htitle = sample.sampleColor + "_" + dict_syst[self.inputsyst]
             hist = setup.setupHistogram(
                 values      = sample.cut_data[cat][variable].values,
                 weights     = weights,
                 nbins       = bins,
                 bin_range   = bin_range,
                 color       = setup.GetPlotColor(sample.sampleColor),
-                xtitle      = sample.sampleName,
+                xtitle      = htitle,
                 ytitle      = setup.GetyTitle(),
                 filled      = True)
 
@@ -248,6 +390,10 @@ class variablePlotter:
         for key in self.samples:
             sample = self.samples[key]
             if not sample.isSignal: continue
+            if self.inputsyst in onlyttbarlist: continue
+            if self.rate:
+              if self.sampleFlag not in ("all"):
+                if (self.sampleFlag+"_"+self.inputsyst) != key: continue
 
             # get weights
             weights = sample.cut_data[cat]["weight"].values
@@ -261,13 +407,17 @@ class variablePlotter:
             print("weight integral is: ", weightIntegral)
             print("ttHH integral is: ", sum(weights))
             # setup histogram
+            if self.inputsyst == "1":
+                htitle = sample.sampleName
+            else:
+                htitle = sample.sampleColor + "_" + dict_syst[self.inputsyst]
             hist = setup.setupHistogram(
                 values      = sample.cut_data[cat][variable].values,
                 weights     = weights,
                 nbins       = bins,
                 bin_range   = bin_range,
                 color       = setup.GetPlotColor(sample.sampleColor),
-                xtitle      = sample.sampleName,
+                xtitle      = htitle,
                 ytitle      = setup.GetyTitle(),
                 filled      = False)
 
@@ -296,7 +446,7 @@ class variablePlotter:
                 weights     = weights,
                 nbins       = bins,
                 bin_range   = bin_range,
-                color       = ROOT.kBlue,
+                color       = ROOT.kBlack,
                 xtitle      = sample.sampleName,
                 ytitle      = setup.GetyTitle(),
                 filled      = False)

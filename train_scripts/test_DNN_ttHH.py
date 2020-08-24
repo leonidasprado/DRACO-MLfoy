@@ -49,20 +49,20 @@ dnn = DNN.DNN(
     test_percentage = 0.2)
 
 # build default model
-dnn.build_model()
+#dnn.build_model()
 # perform the training
-dnn.train_model()
+#dnn.train_model()
 # evalute the trained model
-dnn.eval_model()
+#dnn.eval_model()
 #If model already exists, use only commands below
-#dnn.load_trained_model()
+dnn.load_trained_model()
 # get variable ranking
 dnn.get_input_weights()
 
 # plotting 
 # plot the evaluation metrics
-dnn.plot_metrics()
+#dnn.plot_metrics()
 # plot the confusion matrix
-dnn.plot_confusionMatrix(norm_matrix = True)
+#dnn.plot_confusionMatrix(norm_matrix = True)
 # plot the output discriminators
 dnn.plot_discriminators()

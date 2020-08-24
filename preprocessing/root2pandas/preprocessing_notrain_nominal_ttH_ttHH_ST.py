@@ -24,7 +24,8 @@ or \
 
 # define other additional selections
 
-ttHH_selection = "(Evt_Odd == 0)"
+ttHH_selection = "(Evt_Odd == 1)"
+#ttHH_selection = "(Evt_Odd == 0)"
 
 # define output classes
 ttHH_categories = root2pandas.EventCategories()
@@ -37,7 +38,8 @@ SingleTop_categories = root2pandas.EventCategories()
 SingleTop_categories.addCategory("SingleTop", selection = None)
 
 # some definitions
-outdirttHH="/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_May11_ttH_ttHH/"
+outdirttHH="/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_May11_ttHH_odd/"
+#outdirttHH="/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_May11_ttH_ttHH/"
 outdir=outdirttHH
 if not os.path.exists(outdir):
     os.makedirs(outdir)
@@ -48,6 +50,8 @@ dataset = root2pandas.Dataset(
     addCNNmap   = False,
     addMEM      = False)
 
+# add base event selection
+dataset.addBaseSelection(base_selection)
 
 # add samples to dataset
 dataset.addSample(
@@ -57,41 +61,41 @@ dataset.addSample(
     selections  = ttHH_selection)
 
 
-dataset.addSample(
-    sampleName  = "ttHbb",
-    ntuples     = "/eos/user/l/lprado/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/*nominal*.root",
-    categories  = ttH_categories,
-    selections  = None)
+#dataset.addSample(
+#    sampleName  = "ttHbb",
+#    ntuples     = "/eos/user/l/lprado/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/*nominal*.root",
+#    categories  = ttH_categories,
+#    selections  = None)
 
-dataset.addSample(
-    sampleName  = "STsch",
-    ntuples     = "/eos/user/l/lprado/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-amcatnlo-pythia8/*nominal*.root",
-    categories  = SingleTop_categories,
-    selections  = None)
+#dataset.addSample(
+#    sampleName  = "STsch",
+#    ntuples     = "/eos/user/l/lprado/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-amcatnlo-pythia8/*nominal*.root",
+#    categories  = SingleTop_categories,
+#    selections  = None)
 
-dataset.addSample(
-    sampleName  = "STtchAntitop",
-    ntuples     = "/eos/user/l/lprado/ST_t-channel_antitop_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/*nominal*.root",
-    categories  = SingleTop_categories,
-    selections  = None)
+#dataset.addSample(
+#    sampleName  = "STtchAntitop",
+#    ntuples     = "/eos/user/l/lprado/ST_t-channel_antitop_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/*nominal*.root",
+#    categories  = SingleTop_categories,
+#    selections  = None)
 
-dataset.addSample(
-    sampleName  = "STtchTop",
-    ntuples     = "/eos/user/l/lprado/ST_t-channel_top_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/*nominal*.root",
-    categories  = SingleTop_categories,
-    selections  = None)
+#dataset.addSample(
+#    sampleName  = "STtchTop",
+#    ntuples     = "/eos/user/l/lprado/ST_t-channel_top_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/*nominal*.root",
+#    categories  = SingleTop_categories,
+#    selections  = None)
 
-dataset.addSample(
-    sampleName  = "STtwchAntitop",
-    ntuples     = "/eos/user/l/lprado/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/*nominal*.root",
-    categories  = SingleTop_categories,
-    selections  = None)
+#dataset.addSample(
+#    sampleName  = "STtwchAntitop",
+#    ntuples     = "/eos/user/l/lprado/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/*nominal*.root",
+#    categories  = SingleTop_categories,
+#    selections  = None)
 
-dataset.addSample(
-    sampleName  = "STtwchTop",
-    ntuples     = "/eos/user/l/lprado/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/*nominal*.root",
-    categories  = SingleTop_categories,
-    selections  = None)
+#dataset.addSample(
+#    sampleName  = "STtwchTop",
+#    ntuples     = "/eos/user/l/lprado/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/*nominal*.root",
+#    categories  = SingleTop_categories,
+#    selections  = None)
 
 # initialize variable list 
 dataset.addVariables(variable_set.all_variables)

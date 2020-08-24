@@ -44,7 +44,8 @@ ttbar_categories.addCategory("ttlf", selection = "(GenEvt_I_TTPlusBB == 0 and Ge
 ttbar_categories.addCategory("ttcc", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 1)")
 
 #some definitions
-outdirttbar="/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_May11_ttbar/"
+outdirttbar="/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_May11_ttlep/"
+#outdirttbar="/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_May11_ttbar/"
 outdir=outdirttbar
 if not os.path.exists(outdir):
     os.makedirs(outdir)
@@ -60,17 +61,17 @@ dataset.addBaseSelection(base_selection)
 
 
 # add samples to dataset
-dataset.addSample(
-    sampleName  = "TTToSL",
-    ntuples     = "/eos/user/l/lprado/TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8/*nominal*.root",
-    categories  = ttbar_categories,
-    selections  = None)
+#dataset.addSample(
+#    sampleName  = "TTToSL",
+#    ntuples     = "/eos/user/l/lprado/TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8/*nominal*.root",
+#    categories  = ttbar_categories,
+#    selections  = None)
 
-dataset.addSample(
-    sampleName  = "TTToHad",
-    ntuples     = "/eos/user/l/lprado/TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8/*nominal*.root",
-    categories  = ttbar_categories,
-    selections  = None)
+#dataset.addSample(
+#    sampleName  = "TTToHad",
+#    ntuples     = "/eos/user/l/lprado/TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8/*nominal*.root",
+#    categories  = ttbar_categories,
+#    selections  = None)
 
 dataset.addSample(
     sampleName  = "TTToLep",

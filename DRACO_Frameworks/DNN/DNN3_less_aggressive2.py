@@ -113,7 +113,9 @@ class DNN():
 
         #self.bin_range=[[0.17,1.0],[0.17,0.84],[0.17,0.70],[0.17,0.58],[0.17,0.41],[0.17,0.64]]
 	#ttHH4b steps of 0.0415
-        self.bin_range=[np.array([0.17,0.253,0.2945,0.336,0.3775,0.419,0.4605,0.502,0.54,0.58,0.62,0.66,0.70,0.74,0.78,0.815,0.855,0.895,0.94,1.0],dtype='float64'),\
+#         np.array([0.17,0.253,0.2945,0.336,0.3775,0.419,0.4605,0.502,0.54,0.58,0.62,0.66,0.70,0.74,0.78,0.815,0.855,0.895,0.94,1.0],dtype='float64'),
+        self.bin_range=[\
+         np.array([0.17,0.253,0.336,0.419,0.502,0.58,0.66,0.74,0.815,0.895,1.0],dtype='float64'),\
          np.array([0.17,0.26,0.305,0.35,0.395,0.44,0.485,0.53,0.575,0.62,0.665,0.71,0.84],dtype='float64'),\
          np.array([0.17,0.276,0.329,0.382,0.435,0.488,0.70],dtype='float64'),\
          np.array([0.17,0.244,0.281,0.318,0.355,0.392,0.429,0.58],dtype='float64'),\
@@ -121,7 +123,8 @@ class DNN():
          np.array([0.17,0.263,0.294,0.325,0.356,0.387,0.418,0.449,0.48,0.511,0.542,0.64],dtype='float64')]
         #self.nbins=[len(self.bin_range[0])-1,len(self.bin_range[1])-1,len(self.bin_range[2])-1,len(self.bin_range[3])-1,len(self.bin_range[4])-1,len(self.bin_range[5])-1]
         #self.nbins=[20,15,10,11,7,15]
-        self.nbins=[19,12,6,7,4,11]
+        #self.nbins=[19,12,6,7,4,11]
+        self.nbins=[10,12,6,7,4,11]
 
     def _load_datasets(self):
         ''' load data set '''
@@ -153,11 +156,11 @@ class DNN():
 
         self.predicted_classes = np.argmax( self.model_prediction_vector, axis = 1)
         #Some checks:
-	print("prediction vector print: ",self.model_prediction_vector[0:10,:])
-        print("predicted_classes is: ",self.predicted_classes)
+	#print("prediction vector print: ",self.model_prediction_vector[0:10,:])
+        #print("predicted_classes is: ",self.predicted_classes)
         print("event_classes is: ",self.event_classes)
 	print("event_classes_extra is:  ",self.event_classes_extra)
-        print(self.categoryLabel)
+        #print(self.categoryLabel)
         #print(self.data)
 	for i, node_cls in enumerate(self.event_classes):
 	  print(i)
@@ -167,7 +170,7 @@ class DNN():
         #print(self.data.get_full_df())
 	print("get test labels is:  ", self.data.get_test_labels(as_categorical=False))
  	#print("lumi weights:   ", self.data.get_lumi_weights())
-	print("get test labels is:  ", self.data.get_test_labels(as_categorical=False)[0])
+	#print("get test labels is:  ", self.data.get_test_labels(as_categorical=False)[0])
     def predict_event_query(self, query ):
         events = self.data.get_full_df().query( query )
         print(str(events.shape[0]) + " events matched the query '"+str(query)+"'.")

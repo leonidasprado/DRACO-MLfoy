@@ -471,7 +471,7 @@ class DNN():
             plotdir             = self.plot_path,
             logscale            = log)
 
-        plotDiscrs.set_printROCScore(True)
+        plotDiscrs.set_printROCScore(False)#defailt = true
         plotDiscrs.plot(ratio = False)
 
 

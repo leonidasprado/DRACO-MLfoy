@@ -12,6 +12,7 @@ sys.path.append(basedir)
 import DRACO_Frameworks.DNN.DNN3_less_aggressive2 as DNN
 # specify which variable set to use
 import variable_sets.ttHH_topVariables as variable_set
+#import variable_sets.ttHH_topVariables_OLD as variable_set
 
 # when executing the script give the jet-tag category as a first argument
 # (ge)[nJets]j_(ge)[nTags]t
@@ -28,7 +29,7 @@ event_classes = ["ttHH4b", "ttbb", "tt2b","ttb","ttcc","ttlf"]
 #below are the datasets to be loaded. Chose it as a terminal argument
 event_nominal=["ttHH4b", "ttbb", "tt2b","ttb","ttcc","ttlf","ttHbb","SingleTop"]
 #thi nominal_extra is mainly used for testing
-event_nominal_extra=["ttbb"]
+event_nominal_extra=["ttHH4b"]
 #event_nominal_extra=["ttHbb"]
 event_data=["data_obs"]
 
@@ -53,9 +54,10 @@ else:
   root_output = "ttHH_predict_"+str(sys.argv[1])+"_"+JTcategory+".root"
 
 # absolute path to folder with input dataframes
+#inPath   = "/afs/cern.ch/user/l/lprado/work/InputFiles/Old_ScaleFactors_Files/ttHH_syst-allVar-ttHbb-systntuples"
 inPath   = "/afs/cern.ch/user/l/lprado/work/InputFiles/ttHH_May11"
-
 # path to output directory (adjust NAMING)
+#savepath = basedir+"/workdir/"+"ttHH_2017_predict_ttHbb_"+str(JTcategory)
 savepath = basedir+"/workdir/"+"ttHH_May11_predict_"+str(JTcategory)
 
 # initializing DNN training class

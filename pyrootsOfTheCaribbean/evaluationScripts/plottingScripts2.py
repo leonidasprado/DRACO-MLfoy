@@ -131,9 +131,10 @@ class plotDiscriminators:
                 bkgLabels.append( truth_cls )
 		print("checking the Hists... :   ", bkgHists)
 		print("checking the Labels... :   ", bkgLabels)
+                histogram.SetDirectory(0)
 
 
-
+        f.Close()
 
 #Plotting discriminators on a canvas
 class plotDiscriminatorsPretty:
@@ -236,7 +237,7 @@ class plotDiscriminatorsPretty:
                     bkgLabels.append( truth_cls )
                     print("checking the bkdHists... :   ", bkgHists)
                     print("checking the bkgLabels... :   ", bkgLabels)
-
+                    histogram.SetDirectory(0)
 
             # setup signal histogram
             sigHist = setup.setupHistogram(
@@ -294,6 +295,8 @@ class plotDiscriminatorsPretty:
 
             out_path = self.plotdir + "/finaldiscr_{}.pdf".format(node_cls)
             setup.saveCanvas(canvas, out_path)
+
+            sigHist.SetDirectory(0)
 
         f.Close()
         # add the histograms together
